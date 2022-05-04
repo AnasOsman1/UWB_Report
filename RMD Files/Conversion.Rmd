@@ -1,0 +1,185 @@
+---
+title: "Planar to Spherical Coordinate System Conversion Problem"
+author: "Anas Osman"
+output:
+  pdf_document: default
+  html_notebook: default
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+---
+```{r Loading Libraries, warning=FALSE, include=FALSE}
+library(prettydoc)
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+library(ggthemes)
+library(ggExtra)
+library(knitr)
+library(tidyverse)
+library(fs)
+library(gridExtra)
+library(grid)
+library(patchwork)
+library(gifski)
+library(plotly)
+library(ggplotlyExtra)
+library(kableExtra)
+library(readr)
+library(extrafont)
+library(shiny)
+library(formatR)
+a <- data.frame(read.csv("/Users/anasosman/Downloads/Data-exp/Area11R1.csv", header = TRUE))
+n<- data.frame(read.csv("/Users/anasosman/Downloads/pics/Cohda_Data.csv", header = TRUE))
+```
+## A brief explanation of coordinate systems
+
+1. Latitude/longitude, Easting/Northing, and *X/Y* are all ways to uniquely identify a location on Earth and are also known as coordinates. There are two types of coordinate systems: geographic and projected.
+
+2. A spherical surface is used in a geographic coordinate system, and a point is designated by its latitude and longitude. Latitude and longitude are angular units of measurement that are expressed in degrees, minutes, seconds, or decimal degrees. Longitude values vary from -180° to +180°. The latitude values vary from +90° to -90°.
+
+3. When we create a map, we project a spherical (Earth) onto a flat surface using projected coordinate systems. The latitude and longitude coordinates are translated to *X* and *Y* coordinates. The earth's surface gets warped throughout this change. There is no ideal map projection, and one choose a projection based on the amount of distortion that is acceptable for their needs. Following transformation, latitude is represented by *Y* (Northing) and longitude by *X* (Easting).
+
+4. Summarizing the above, the units for Latitude and longitude is degrees, minutes and seconds and the units for Easting and Northing is linear the most common being meters and feet.
+
+## Proposed Projection
+
+![Conversion of XY coordinates onto a GPS Reference Point]("/Users/anasosman/Downloads/pics/Conversion.png"){#id .class width=600 height=600px}
+
+Total distance projected onto the $GPS$ reference point:
+
+* $(x, y)$ are local coordinate in the garage measured with respect to the initiator Anchor;
+
+* $(x^{\prime}, y^{\prime})$ are the coordinates shift from the initiator point to the reference $GPS$ point;
+
+* $(x^{\prime \prime}, y^{\prime \prime})$ are the final converted and aligned coordinates with the $GPS$ point;
+
+* $R$ is the radius of the globe;
+
+* $\Delta L O N$ is the converted change of distance as $Longitude$;
+
+* $\Delta L A T$ is the converted change of distance as $Latitude$;
+
+* Since the $(\Delta L A T, \Delta L O N)$ account for the change in garage only, we perform the addition of the Reference coordinates taken at $GPS$ point. Therefore the final converted coordinates are $(L A T_{UWB}, L O N_{UWB})$.
+
+
+1. Projection onto to the $GPS$ point
+
+\begin{equation}
+\text { (1) }\left\{\begin{array} {l} 
+{ x ^ { \prime } = x + \alpha } \\
+{ y ^ { \prime } = y + \beta }
+\end{array}\quad\text { (2) } \left\{\begin{array}{l}
+{x^{\prime \prime}=x^{\prime} \cos (\theta)+y^{\prime} \sin (\theta)}\\
+{y^{\prime \prime}=-x^{\prime} \sin (\theta)+y^{\prime} \cos (\theta)}
+\end{array}\right.\right.
+\end{equation}
+
+
+2. Conversion of the XY Coordinate to Lat/ Lon
+
+\begin{equation}
+\text { (3) }\left\{\begin{array} {l} 
+{ \Delta L O N = \arccos ( x ^ { \prime \prime } / R ) } \\
+{ \Delta L A T = \arctan2 ( y ^ { \prime \prime }, \varnothing ) }
+\end{array} \quad \text { (4) }\left\{\begin{array}{l}
+L O N_{UWB}=L O N_{R E F}+\Delta L O N\\
+L A T_{UWB}=L A T_{R E F}+\Delta L A T 
+\end{array}\right.\right.
+\end{equation}
+
+
+```{r}
+Conversion <- function(UWB_data, Cohda_data, beta,
+    alpha, theta, Lat_Ref, Lon_Ref) {
+    # Creating data frame and filtering the input
+    # data
+    new <- UWB_Data %>%
+        select(Time_UWB = "X.dwm1001.id_458E.pose_kf.header.stamp",
+            x = "X.dwm1001.id_458E.pose_kf.pose.position.x",
+            y = "X.dwm1001.id_458E.pose_kf.pose.position.y")
+    Cohda <- Cohda_Data %>%
+        select(lat, lon, Time_Cohda = time_us)
+    # Computing the projection parameters
+    R <- 6378.137  # radius of earth in Km
+    x_1 <- (new$x + alpha)
+    y_1 <- (new$y + beta)
+    x_2 <- (x_1 * cos(theta) + y_1 * sin(theta))
+    y_2 <- (-1 * (x_1) * sin(theta) + y_1 * cos(theta))
+    Lat_UWB <- acos(x_2/R) %>%
+        Lat_Ref + Lat_UWB
+    Lon_UWB <- atan2(y_2, phi) %>%
+        Lon_UWB + Lon_dif
+    # Alignment of both the systems
+    f <- data.frame("Time_UWB" = new$Time_UWB, Lat_UWB, Lon_UWB,
+        "Time_Cohda" = Cohda$Time_Cohda, Cohda$lat, Cohda$long)
+    l <- kbl(caption = "Conversion", head(f, 20), booktabs = TRUE) %>%
+        kable_styling(bootstrap_options = "striped",
+            font_size = 11)
+    return(l)
+}
+```
+
+## Reverse Equirectangular Projection *(Suggestion)*
+
+The reverse projection transforms from the planar to the sphere. The formula presume a spherical model and use these definitions:
+
+
+* $\lambda$ is the longitude of the location to project;
+
+* $\varphi$ is the latitude of the location to project;
+
+* $\varphi_{1}$ are the standard parallels (north and south of the equator) where the scale of the projection is true;
+
+* $\varphi_{0}$ is the central parallel of the map;
+
+* $\lambda_{0}$ is the central meridian of the map;
+
+* $x$ is the horizontal coordinate of the projected location on the map;
+
+* $y$ is the vertical coordinate of the projected location on the map;
+
+* $R$ is the radius of the globe.
+
+## Reverse Conversion 
+
+\begin{equation}
+\begin{aligned}
+&\lambda=\frac{x ^ { \prime \prime }}{R \cos \varphi_{1}}+\lambda_{0} \\
+&\varphi=\frac{y ^ { \prime \prime }}{R}+\varphi_{0}
+\end{aligned}
+\end{equation}
+
+* $\lambda$ is called "yaw".
+
+* $\varphi$ is called "pitch".
+
+Where both are defined in degrees.
+
+*Since now that a forward conversion was mentioned*
+
+## Forward Conversion
+
+\begin{equation}
+\begin{aligned}
+&x=R\left(\lambda-\lambda_{0}\right) \cos \varphi_{1} \\
+&y=R\left(\varphi-\varphi_{0}\right)
+\end{aligned}
+\end{equation}
+
+## Computation of the Distance Traveled *(For Analysis)*
+
+```{r echo=TRUE}
+measure <- function(lon1, lat1, lon2, lat2) {
+    R <- 6378.137  # radius of earth in Km
+    dLat <- (lat2 - lat1) * pi/180
+    dLon <- (lon2 - lon1) * pi/180
+    a <- sin((dLat/2))^2 + cos(lat1 * pi/180) * cos(lat2 * pi/180) * (sin(dLon/2))^2
+    c <- 2 * atan2(sqrt(a), sqrt(1 - a))
+    d <- R * c
+    return(d * 1000)  # distance in meters
+}
+```
+
+
+
