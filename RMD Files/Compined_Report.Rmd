@@ -1,0 +1,89 @@
+---
+title: "[Accuracy vs Area Size] UWB Experiment Summery"
+author: '             Anas Osman'
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+  html_document:
+    df_print: paged
+---
+
+```{r include=FALSE}
+library(prettydoc)
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+library(ggthemes)
+library(ggExtra)
+library(knitr)
+library(tidyverse)
+library(fs)
+library(gridExtra)
+library(grid)
+library(patchwork)
+library(gifski)
+library(plotly)
+library(ggplotlyExtra)
+library(kableExtra)
+library(readr)
+library(extrafont)
+library(shiny)
+library(formatR)
+```
+
+## Goal of the Experiment
+
+Experimenting with accuracy vs. area in the garage in non-absolute line of sight **(Exp1)** and absolute line of sight **(Exp2)**. The trials were carried out in order to comprehend and compute how the accuracy of the dwm1001 module is influenced by three times scaling of the area. The first experiment was carried out in a non-absolute line of sight scenario, with the anchors positioned on garage side pillars surrounded by vehicles. The latter experiment tries to check and guarantee that the measurement error may be reduced if the anchors are located away from objects that would magnify the Fresnel effect.
+
+## Experimental Analysis
+
+### RMSE vs Area Size
+
+Figure 1 depicts how the Root Mean Square Error (RMSE) of all data scales with the Area scale for *X* and *Y* observations for both *Exp1* and *Exp2*. With the exception of Point2/Area1 for the *X* location data, we can see that the results derived from Exp 2 are superior, with total RMSE under **<35** in all situations. Furthermore, while the RMSE for the *Y* location data is identical in both studies, the error at Point2/Area1 is still much larger. Overall, the second experiment scenario appears to be superior.
+
+```{r echo=FALSE, fig.align='center', fig.cap="Comparison between RMSE vs Area Size for Exp1 and Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
+knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1Area.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2Area.png"))
+```
+### RMSE vs Tag Position Size
+The comparison between the Total RMSE of all location data and the Tag position is shown in Figure 2. For Exp1, the tag position number 2 has the lowest RMSE; however, for Exp2, the tag position number 3 has the best RMSE values of all three places. As a result, Exp2 results are superior in the sense that the Area covered at position 3 is greater, allowing for greater freedom when positioning or repositioning the tag.
+
+```{r echo=FALSE, fig.align='center', fig.cap="Comparison between RMSE vs Tag posion for Exp1 and Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
+knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1Tag.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2tag.png"))
+```
+
+### Ground Truth vs UWB Reading
+
+The comparison between the ground truth measurement and the UWB reading is shown in this Figure 3. 
+
+```{r echo=FALSE, fig.align='center', fig.cap="Comparison between the ground truth measurement and the UWB reading Exp1 vs Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
+knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1GT.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2GT.png"))
+```
+
+
+### Comparison between the Total XY RMS Error for the 3 Areas
+
+Figure 4 depicts an overall comparison of how the total RMSE of the observations differs across the three areas. According to those Figures, the lowest RMSE for Exp1 could be found in Area 2, whereas the lowest RMSE for Exp2 could be found in Area 3. Thus, the accuracy obtained from Exp2 is more than that obtained from Exp1 since Area 3 is substantially larger than Area 2, indicating that the Exp2 configuration is significantly superior to that of the Exp1.
+
+```{r echo=FALSE, fig.align='center', fig.cap="Comparison between the Total RMSE in the 3 Areas Exp1 vs Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
+knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1comp.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2comp.png"))
+```
+
+### Position Dilution of Precision & Conclusion
+
+Finally, the Position Dilution of Precision (PDOP) Analysis is done to aid in the accuracy assessment of each area in Figure 5 to bring the experiments to a conclusion. We may deduce from the PDOP data that the Exp1 Area 2 setup has the lowest error in localization measurement. While Area 3 is the best configuration for Exp2 in terms of coverage and error, Area 2 is the best configuration for Exp3 in terms of coverage and error. Finally, we can infer from all of the provided findings that the ideal configuration for anchor placement is seen at Exp2/ Area3, where we are guaranteed both highest coverage Area and lowest error.
+
+```{r echo=FALSE, fig.align='center', fig.cap="Position Dilution of Precision Exp1 vs Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
+knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1pdop1.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2PDOP.png"))
+```
+### Summery of the both the RMSE FOR Exp1 and Exp2
+
+```{r echo=FALSE, fig.cap="Total Root Mean Square Error Exp1", fig.show='hold', warning=FALSE}
+knitr::include_graphics("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1Table.png")
+```
+
+```{r echo=FALSE, fig.cap="Total Root Mean Square Error Exp2", fig.show='hold', warning=FALSE}
+knitr::include_graphics("/Users/anasosman/Downloads/UWB_Report/Figures/Exp2Table.png")
+```
+
+

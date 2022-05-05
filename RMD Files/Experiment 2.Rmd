@@ -3,7 +3,7 @@ title: "Experiment 2 Analysis"
 author: "Anas Osman"
 output:
   prettydoc::html_pretty:
-    theme: cayman
+    theme: architect
     highlight: github
 ---
 
@@ -74,18 +74,18 @@ The experiment was performed to understand and compute how the accuracy is of th
 ## Experiment Layout
 
 ```{r echo=FALSE, out.width="80%"}
-include_graphics('Area.png') 
+#include_graphics('Area.png') 
 ```
 
 ```{r echo=FALSE, out.width="80%"}
-include_graphics('Area1.png') 
+#include_graphics('Area1.png') 
 ```
 
 ```{r echo=FALSE, out.width="80%"}
-include_graphics('Area2.png') 
+#include_graphics('Area2.png') 
 ```
 ```{r echo=FALSE, out.width="80%"}
-include_graphics('Area3.png') 
+#include_graphics('Area3.png') 
 ```
 
 ## Experiment Setup
@@ -99,19 +99,19 @@ include_graphics('Area3.png')
 ## Anchor Placement Configuration
 
 ```{r echo=FALSE, out.width="80%"}
-include_graphics('IMG-2141.jpeg') 
+#include_graphics('IMG-2141.jpeg') 
 ```
 
 ```{r echo=FALSE, out.width="50%"}
-include_graphics('IMG-2139.jpeg') 
+#include_graphics('IMG-2139.jpeg') 
 ```
 
 ```{r echo=FALSE, out.width="50%"}
-include_graphics('IMG-2140.jpeg') 
+#include_graphics('IMG-2140.jpeg') 
 ```
 
 ```{r echo=FALSE, out.width="50%"}
-include_graphics('IMG-2142.jpeg') 
+#include_graphics('IMG-2142.jpeg') 
 ```
 
 
@@ -232,6 +232,12 @@ ggplotly(p)
 ggplotly(O)
 ```
 
+```{r}
+wrap_plots(p, O)
+```
+
+
+
 * This following plot depicts the comparison between the Total RMSE of all location data and the Tag position. We can observe that the RMSE of point 2 is slightly higher in the x in comparison with the other 2 points. A similar pattern is observed for the RMSE in y, however at one observation the error was significantly higher then all the other observations. 
 
 
@@ -321,8 +327,13 @@ ggplotly(p1)
 p2$labels$colour <-"Legend"
 ggplotly(p2)
 ```
+```{r}
+wrap_plots(p1,p2)
+```
 
-* The comparison between the ground truth measurement and the UWB reading is show in this figure. 
+
+
+* The comparison between the ground truth measurement and the UWB reading is shown in this figure. 
 
 ```{r include=FALSE}
 ##Area1
@@ -523,7 +534,7 @@ Pdop <- ggplot()+
     axis.title.x  =  element_text(color = "blue", size = 12, face = "bold"),
     axis.title.y  =  element_text(color = "#993333", size = 12, face = "bold"))+
   labs(
-    title = "                     Position Dilution of Precision Analysis",
+    title = "                 Position Dilution of Precision Analysis",
     y = "Position Dilution of Percision",
     x = "Number of Areas",
     shape = "nn")
@@ -533,13 +544,6 @@ Pdop <- ggplot()+
 Pdop$labels$colour <- "Legend"
 ggplotly(Pdop)
 ```
-
-
-```{r}
-
-```
-
-
 
 
 
