@@ -1,12 +1,13 @@
 ---
-title: "[Accuracy vs Area Size] UWB Experiment Summery"
+title: '[Accuracy vs Area Size] UWB Experiment Summery'
 author: '             Anas Osman'
 output:
+  pdf_document: default
+  html_notebook: default
   prettydoc::html_pretty:
     theme: architect
     highlight: github
-  html_document:
-    df_print: paged
+  '': default
 ---
 
 ```{r include=FALSE}
@@ -40,7 +41,7 @@ Experimenting with accuracy vs. area in the garage in non-absolute line of sight
 
 ### RMSE vs Area Size
 
-Figure 1 depicts how the Root Mean Square Error (RMSE) of all data scales with the Area scale for *X* and *Y* observations for both *Exp1* and *Exp2*. With the exception of Point2/Area1 for the *X* location data, we can see that the results derived from Exp 2 are superior, with total RMSE under **<35** in all situations. Furthermore, while the RMSE for the *Y* location data is identical in both studies, the error at Point2/Area1 is still much larger. Overall, the second experiment scenario appears to be superior.
+Figure 1 depicts how the Root Mean Square Error (RMSE) of all data scales with the Area scale for *X* and *Y* observations for both Exp1 and Exp2. With the exception of Point2/Area1 for the *X* location data, we can see that the results derived from Exp 2 are superior, with total RMSE under **<35 cm** in all situations. Furthermore, while the RMSE for the *Y* location data is identical in both studies, the error at Point2/Area1 is still much larger. Overall, the second experiment scenario appears to be superior.
 
 ```{r echo=FALSE, fig.align='center', fig.cap="Comparison between RMSE vs Area Size for Exp1 and Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
 knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1Area.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2Area.png"))
@@ -71,7 +72,7 @@ knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1com
 
 ### Position Dilution of Precision & Conclusion
 
-Finally, the Position Dilution of Precision (PDOP) Analysis is done to aid in the accuracy assessment of each area in Figure 5 to bring the experiments to a conclusion. We may deduce from the PDOP data that the Exp1 Area 2 setup has the lowest error in localization measurement. While Area 3 is the best configuration for Exp2 in terms of coverage and error, Area 2 is the best configuration for Exp3 in terms of coverage and error. Finally, we can infer from all of the provided findings that the ideal configuration for anchor placement is seen at Exp2/ Area3, where we are guaranteed both highest coverage Area and lowest error.
+Finally, the Position Dilution of Precision (PDOP) Analysis is done to aid in the accuracy assessment of each area in Figure 5 to bring the experiments to a conclusion. We may deduce from the PDOP data that the Exp1 Area 2 setup has the lowest error in localization measurement. While Area 3 is the best configuration for Exp2 in terms of coverage and error, Area 2 is the best configuration for Exp3 in terms of coverage and error. Finally, we can infer from all of the provided findings that the ideal configuration for anchor placement is seen at Exp2/ Area3, where we are guaranteed both highest coverage Area and lowest error.
 
 ```{r echo=FALSE, fig.align='center', fig.cap="Position Dilution of Precision Exp1 vs Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
 knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1pdop1.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2PDOP.png"))
