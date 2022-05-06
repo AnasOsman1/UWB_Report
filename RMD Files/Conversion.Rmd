@@ -2,11 +2,11 @@
 title: "Planar to Spherical Coordinate System Conversion Problem"
 author: "Anas Osman"
 output:
-  pdf_document: default
-  html_notebook: default
   prettydoc::html_pretty:
     theme: architect
     highlight: github
+  html_notebook: default
+  pdf_document: default
 ---
 ```{r Loading Libraries, warning=FALSE, include=FALSE}
 library(prettydoc)
