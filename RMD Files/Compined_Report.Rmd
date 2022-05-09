@@ -2,10 +2,10 @@
 title: '[Accuracy vs Area Size] UWB Experiment Summery'
 author: '             Anas Osman'
 output:
-  pdf_document: default
   prettydoc::html_pretty:
     theme: architect
     highlight: github
+  pdf_document: default
   html_notebook: default
   '': default
 ---
@@ -37,7 +37,7 @@ library(formatR)
 
 * Experimenting with accuracy vs. area in the garage in non-absolute line of sight **(Exp1)** and absolute line of sight **(Exp2)**. The trials were carried out in order to comprehend and compute how the accuracy of the dwm1001 module is influenced by three times scaling of the area. The first experiment was carried out in a non-absolute line of sight scenario, with the anchors positioned on garage side pillars surrounded by vehicles. The latter experiment tries to check and guarantee that the measurement error may be reduced if the anchors are located away from objects that would magnify the Fresnel effect.
 
-* Precise measurement were done using laser tool. The experiments were split into 3 scenarios, each on was performed with reference to 3 points and then scaled as the area increased. Three measurement were taken at each point for each area, each measurement instance was performed for 1 minute, with a total of 27 measurements for almost half an hour of data.
+* Ground Truth measurements were done using laser tool. The experiments were split into 3 scenarios, each on was performed with reference to 3 points and then scaled as the area increased. Three measurement were taken at each point for each area, each measurement instance was performed for 1 minute, with a total of 27 measurements for almost half an hour of data.
 
 * The gateway/ listener tag was always near the tag to avoid any losses or missed instances and that has been seen in the log files as there was no data lost during all 27 instances for each experiment.
 
@@ -45,11 +45,13 @@ library(formatR)
 
 * All data was captured and converted using the ROS interface we developed and its ready to be aligned with the **Cohda** Wireless data once the actual experiment is done.
 
+
+
 ## Experiment Layout
 
 
 ```{r echo=FALSE, fig.align='center', fig.cap="Exp1/Area Layout and Exp2/Area Layout", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
-knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Area.1.png","/Users/anasosman/Downloads/UWB_Report/Figures/Area.2.png"))
+knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Area.1.png","/Users/anasosman/Downloads/UWB_Report/Figures/map2.png"))
 ```
 
 ```{r echo=FALSE, fig.align='center', fig.cap="Exp1/Area1 Layout and Exp2/Area1 Layout", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
@@ -73,22 +75,22 @@ knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Area3.1
 Figure 1 depicts how the Root Mean Square Error (RMSE) of all data scales with the Area scale for *X* and *Y* observations for both Exp1 and Exp2. With the exception of Point2/Area1 for the *X* location data, we can see that the results derived from Exp 2 are superior, with total RMSE under **<35 cm** in all situations. Furthermore, while the RMSE for the *Y* location data is identical in both studies, the error at Point2/Area1 is still much larger. Overall, the second experiment scenario appears to be superior.
 
 ```{r echo=FALSE, fig.align='center', fig.cap="Comparison between RMSE vs Area Size for Exp1 and Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
-knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1Area.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2Area.png"))
+knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp200005.png"))
 ```
 ### RMSE vs Tag Position Size
 
 The comparison between the Total RMSE of all location data and the Tag position is shown in Figure 2. For Exp1, the tag position number 2 has the lowest RMSE; however, for Exp2, the tag position number 3 has the best RMSE values of all three places. As a result, Exp2 results are superior in the sense that the Area covered at position 3 is greater, allowing for greater freedom when positioning or repositioning the tag.
 
 ```{r echo=FALSE, fig.align='center', fig.cap="Comparison between RMSE vs Tag posion for Exp1 and Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
-knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1Tag.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2tag.png"))
+knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1.2.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp200004.png"))
 ```
 
 ### Ground Truth vs UWB Reading
 
-The comparison between the ground truth measurement and the UWB reading is shown in this Figure 3. 
+Figure 3 depicts a comparison between the ground truth measurement and the UWB reading. We can see a definite patterned gap on the X measurement, which suggests a ground truth inaccuracy because this pattern is not detected for the Y readings. This might be due to the imperfection of the ground truth measuring equipment, which should be mounted on a tripod to guarantee that all measurements are accurate and precise.
 
 ```{r echo=FALSE, fig.align='center', fig.cap="Comparison between the ground truth measurement and the UWB reading Exp1 vs Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
-knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1GT.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2GT.png"))
+knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1.3.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp200003.png"))
 ```
 
 
@@ -97,24 +99,28 @@ knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1GT.
 Figure 4 depicts an overall comparison of how the total RMSE of the observations differs across the three areas. According to those Figures, the lowest RMSE for Exp1 could be found in Area 2, whereas the lowest RMSE for Exp2 could be found in Area 3. Thus, the accuracy obtained from Exp2 is more than that obtained from Exp1 since Area 3 is substantially larger than Area 2, indicating that the Exp2 configuration is significantly superior to that of the Exp1.
 
 ```{r echo=FALSE, fig.align='center', fig.cap="Comparison between the Total RMSE in the 3 Areas Exp1 vs Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
-knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1comp.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2comp.png"))
+knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp10004.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp200002.png"))
 ```
 
 ### Position Dilution of Precision & Conclusion
+In this report the **RMSE** and **PDOP** which are widely utilized as metrics to evaluate the optimal anchors arrangement has been investigated. Moreover, the Position Dilution of Precision (PDOP) Analysis is done to aid in the accuracy assessment of each area in Figure 5 to bring the experiments to a conclusion. 
 
-Finally, the Position Dilution of Precision (PDOP) Analysis is done to aid in the accuracy assessment of each area in Figure 5 to bring the experiments to a conclusion. We may deduce from the PDOP data that the Exp1 Area 2 setup has the lowest error in localization measurement. While Area 3 is the best configuration for Exp2 in terms of coverage and error, Area 2 is the best configuration for Exp3 in terms of coverage and error. Finally, we can infer from all of the provided findings that the most accuracy efficient configuration for anchor placement is seen at Exp2/ Area3, where we are guaranteed both highest coverage Area and lowest error.
+**GDoP** is a metric used to quantify the precision and accuracy of GPS satellite data, and it is currently being adopted for a variety of positioning systems. This measurement represents how successfully the satellites are geometrically aligned. The lower the value, the better the position. The correlation of **PDOP** (Position Dilution of Precision), **HDOP** (Horizon Dilution of Precision), and **VDOP** (Vertical Dilution of Precision) may be used to calculate GDOP. These metrics have been transferred to UWB infrastructure and applications. As a result, determining a receivers position (tag) in a general three-dimensional region demands the usage of at least four UWB anchor modules. Since time $t$ is irrelevant for UWB ranging systems since the signal propagation time is directly employed for time-of-flight measurement. As a result, the PDoP measure is employed instead of the GDoP.
+
+We may deduce from the PDOP data that the Exp1 Area 2 setup has the lowest error in localization measurement. While Area 3 is the best configuration for Exp2 in terms of coverage and error, Area 2 is the best configuration for Exp3 in terms of coverage and error. Finally, we can infer from all of the provided findings that the most accuracy efficient configuration for anchor placement is seen at Exp2/ Area3, where we are guaranteed both highest coverage Area and lowest error. 
 
 ```{r echo=FALSE, fig.align='center', fig.cap="Position Dilution of Precision Exp1 vs Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
-knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1pdop1.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp2PDOP.png"))
+knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1.5.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp200001.png"))
 ```
 ### Summery of the both the RMSE FOR Exp1 and Exp2
 
-```{r echo=FALSE, fig.cap="Total Root Mean Square Error Exp1", fig.show='hold', warning=FALSE}
+```{r echo=FALSE, fig.cap="", fig.show='hold', warning=FALSE}
 knitr::include_graphics("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1Table.png")
 ```
 
-```{r echo=FALSE, fig.cap="Total Root Mean Square Error Exp2", fig.show='hold', warning=FALSE}
-knitr::include_graphics("/Users/anasosman/Downloads/UWB_Report/Figures/Exp2Table.png")
+```{r echo=FALSE, fig.cap="", fig.show='hold', warning=FALSE}
+knitr::include_graphics("/Users/anasosman/Downloads/UWB_Report/Figures/TableExp2.png")
 ```
+
 
 

@@ -179,9 +179,12 @@ RMSE_Area3.3
 ```{r warning=FALSE, include=FALSE}
 loadfonts(device = "all")
 color <- list("red","blue","black")
+Point1RMSE <- "red"
+Point2RMSE <- "black"
+Point3RMSE <- "blue"
 p <- ggplot()+
-  geom_point(data =RMSE_Area1.1 , aes(x= "Area1", y =RMSEx, color="Point1RMSE"),shape = 3)+
-  geom_point(data =RMSE_Area1.2 , aes(x= "Area1", y= RMSEx, color="Point2RMSE"),shape = 3)+
+  geom_point(data =RMSE_Area1.1 , aes(x= "Area1", y =RMSEx, color ="Point1RMSE"),shape = 3)+
+  geom_point(data =RMSE_Area1.2 , aes(x= "Area1", y= RMSEx, color ="Point2RMSE"),shape = 3)+
   geom_point(data =RMSE_Area1.3 , aes(x= "Area1", y= RMSEx, color ="Point3RMSE"),shape = 3)+
   geom_point(data =RMSE_Area2.1 , aes(x= "Area2", y= RMSEx, color ="Point1RMSE"),shape = 3)+
   geom_point(data =RMSE_Area2.2 , aes(x= "Area2", y= RMSEx, color ="Point2RMSE"),shape = 3)+
@@ -190,41 +193,43 @@ p <- ggplot()+
   geom_point(data =RMSE_Area3.2 , aes(x= "Area3", y= RMSEx, color ="Point2RMSE"),shape = 3)+
   geom_point(data =RMSE_Area3.3 , aes(x= "Area3", y= RMSEx, color ="Point3RMSE"),shape = 3)+
   theme_bw()+
+  scale_color_manual(
+    labels = c("Point1RMSE","Point2RMSE","Point3RMSE"), 
+    values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
   theme(
-    text = element_text(size = 12, color = "black", face = "bold",family="Comic Sans MS"),
-    axis.title.x  =  element_text(color = "blue", size = 12, face = "bold"),
-    axis.title.y  =  element_text(color = "#993333", size = 12, face = "bold"))+
+    text = element_text(size = 10, color = "black"),
+    axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
+    axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
-    title =  "Root Mean Square Error of All the Data in X vs Area Size",
     y = "Root Mean Square Error X in (meters)",
     x = "Number of Areas")
 
 O <- ggplot()+
-  geom_point(data =RMSE_Area1.1 , aes(x= "Area1", y =RMSEy, color="Point1RMSE"),shape = 3)+
-  geom_point(data =RMSE_Area1.2 , aes(x= "Area1", y= RMSEy, color="Point2RMSE"),shape = 3)+
-  geom_point(data =RMSE_Area1.3 , aes(x= "Area1", y= RMSEy, color ="Point3RMSE"),shape = 3)+
-  geom_point(data =RMSE_Area2.1 , aes(x= "Area2", y= RMSEy, color ="Point1RMSE"),shape = 3)+
-  geom_point(data =RMSE_Area2.2 , aes(x= "Area2", y= RMSEy, color ="Point2RMSE"),shape = 3)+
-  geom_point(data =RMSE_Area2.3 , aes(x= "Area2", y= RMSEy, color ="Point3RMSE"),shape = 3)+
-  geom_point(data =RMSE_Area3.1 , aes(x= "Area3", y= RMSEy, color ="Point1RMSE"),shape = 3)+
-  geom_point(data =RMSE_Area3.2 , aes(x= "Area3", y= RMSEy, color ="Point2RMSE"),shape = 3)+
-  geom_point(data =RMSE_Area3.3 , aes(x= "Area3", y= RMSEy, color ="Point3RMSE"),shape = 3)+
-  theme_bw(base_family = "Times")+
+  geom_point(data =RMSE_Area1.1 , aes(x= "Area1", y =RMSEy, color = "Point1RMSE"),shape = 3)+
+  geom_point(data =RMSE_Area1.2 , aes(x= "Area1", y= RMSEy, color = "Point2RMSE"),shape = 3)+
+  geom_point(data =RMSE_Area1.3 , aes(x= "Area1", y= RMSEy, color = "Point3RMSE"),shape = 3)+
+  geom_point(data =RMSE_Area2.1 , aes(x= "Area2", y= RMSEy, color = "Point1RMSE"),shape = 3)+
+  geom_point(data =RMSE_Area2.2 , aes(x= "Area2", y= RMSEy, color = "Point2RMSE"),shape = 3)+
+  geom_point(data =RMSE_Area2.3 , aes(x= "Area2", y= RMSEy, color = 'Point3RMSE'),shape = 3)+
+  geom_point(data =RMSE_Area3.1 , aes(x= "Area3", y= RMSEy, color = "Point1RMSE"),shape = 3)+
+  geom_point(data =RMSE_Area3.2 , aes(x= "Area3", y= RMSEy, color = "Point2RMSE"),shape = 3)+
+  geom_point(data =RMSE_Area3.3 , aes(x= "Area3", y= RMSEy, color = "Point3RMSE"),shape = 3)+
+  theme_bw()+
+  scale_color_manual(
+    labels = c("Point1RMSE","Point2RMSE","Point3RMSE"), 
+    values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
   theme(
-    text = element_text(size = 12, color = "black", face = "bold", family="Comic Sans MS"),
-    axis.title.x  =  element_text(color = "blue", size = 12, face = "bold"),
-    axis.title.y  =  element_text(color = "#993333", size = 12, face = "bold"))+
+    text = element_text(size = 10, color = "black"),
+    axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
+    axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
-    title =  "Root Mean Square Error of All the Data in Y vs Area Size",
     y = "Root Mean Square Error Y in (meters)",
     x = "Number of Areas")
-  
-
 ```
 
 ```{r echo=FALSE}
-p$labels$colour<- "Legend"
-O$labels$colour<- "Legend"
 ggplotly(p)
 ```
 
@@ -233,7 +238,7 @@ ggplotly(O)
 ```
 
 ```{r}
-wrap_plots(p, O)
+wrap_plots(p, O)+plot_annotation(title = '         Ex2 Root Mean Square Error of All Data vs Number of Areas in X and Y')
 ```
 
 
@@ -274,43 +279,47 @@ df9<-map_df(RMSE_Area3.3, mean)%>%
 
 ```{r include=FALSE}
 p1 <- ggplot()+
-  geom_point(data = df1, aes(x = "1", y= X_RMSE, color = "Point1"),shape = 3)+
-  geom_point(data = df2, aes(x = "2", y= X_RMSE, color = "Point2"),shape = 3)+
-  geom_point(data = df3, aes(x = "3", y= X_RMSE, color = "Point3"),shape = 3)+
-  geom_point(data = df4, aes(x = "1", y= X_RMSE, color = "Point1"),shape = 3)+
-  geom_point(data = df5, aes(x = "2", y= X_RMSE, color = "Point2"),shape = 3)+
-  geom_point(data = df6, aes(x = "3", y= X_RMSE, color = "Point3"),shape = 3)+
-  geom_point(data = df7, aes(x = "1", y= X_RMSE, color = "Point1"),shape = 3)+
-  geom_point(data = df8, aes(x = "2", y= X_RMSE, color = "Point2"),shape = 3)+
-  geom_point(data = df9, aes(x = "3", y= X_RMSE, color = "Point3"),shape = 3)+
-  theme_bw(base_family = "Times")+
+  geom_point(data = df1, aes(x = "1", y= X_RMSE, color = "Position1RMSE"),shape = 4)+
+  geom_point(data = df2, aes(x = "2", y= X_RMSE, color = "Position2RMSE"),shape = 4)+
+  geom_point(data = df3, aes(x = "3", y= X_RMSE, color = "Position3RMSE"),shape = 4)+
+  geom_point(data = df4, aes(x = "1", y= X_RMSE, color = "Position1RMSE"),shape = 4)+
+  geom_point(data = df5, aes(x = "2", y= X_RMSE, color = "Position2RMSE"),shape = 4)+
+  geom_point(data = df6, aes(x = "3", y= X_RMSE, color = "Position3RMSE"),shape = 4)+
+  geom_point(data = df7, aes(x = "1", y= X_RMSE, color = "Position1RMSE"),shape = 4)+
+  geom_point(data = df8, aes(x = "2", y= X_RMSE, color = "Position2RMSE"),shape = 4)+
+  geom_point(data = df9, aes(x = "3", y= X_RMSE, color = "Position3RMSE"),shape = 4)+
+  theme_bw()+
+  scale_color_manual(
+    labels = c("Point1RMSE","Point2RMSE","Point3RMSE"), 
+    values = c("red","black","blue"))+ 
   theme(
-    text = element_text(size = 12, color = "black", face = "bold", family="Comic Sans MS"),
-    axis.title.x  =  element_text(color = "blue", size = 12, face = "bold"),
-    axis.title.y  =  element_text(color = "#993333", size = 12, face = "bold"))+
+    text = element_text(size = 10, color = "black"),
+    axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
+    axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
-    title =  "Total Root Mean Square Error of All the Data in X vs Tag Position",
     y = "Total Root Mean Square Error X in (meters)",
     x = "Tag Position")
 
 
 p2 <- ggplot()+
-  geom_point(data = df1, aes(x = "1", y= Y_RMSE, color = "Point1"),shape = 3)+
-  geom_point(data = df2, aes(x = "2", y= Y_RMSE, color = "Point2"),shape = 3)+
-  geom_point(data = df3, aes(x = "3", y= Y_RMSE, color = "Point3"),shape = 3)+
-  geom_point(data = df4, aes(x = "1", y= Y_RMSE, color = "Point1"),shape = 3)+
-  geom_point(data = df5, aes(x = "2", y= Y_RMSE, color = "Point2"),shape = 3)+
-  geom_point(data = df6, aes(x = "3", y= Y_RMSE, color = "Point3"),shape = 3)+
-  geom_point(data = df7, aes(x = "1", y= Y_RMSE, color = "Point1"),shape = 3)+
-  geom_point(data = df8, aes(x = "2", y= Y_RMSE, color = "Point2"),shape = 3)+
-  geom_point(data = df9, aes(x = "3", y= Y_RMSE, color = "Point3"),shape = 3)+
-  theme_bw(base_family = "Times")+
+  geom_point(data = df1, aes(x = "1", y= Y_RMSE, color = "Position1RMSE"),shape = 4)+
+  geom_point(data = df2, aes(x = "2", y= Y_RMSE, color = "Position2RMSE"),shape = 4)+
+  geom_point(data = df3, aes(x = "3", y= Y_RMSE, color = "Position3RMSE"),shape = 4)+
+  geom_point(data = df4, aes(x = "1", y= Y_RMSE, color = "Position1RMSE"),shape = 4)+
+  geom_point(data = df5, aes(x = "2", y= Y_RMSE, color = "Position2RMSE"),shape = 4)+
+  geom_point(data = df6, aes(x = "3", y= Y_RMSE, color = "Position3RMSE"),shape = 4)+
+  geom_point(data = df7, aes(x = "1", y= Y_RMSE, color = "Position1RMSE"),shape = 4)+
+  geom_point(data = df8, aes(x = "2", y= Y_RMSE, color = "Position2RMSE"),shape = 4)+
+  geom_point(data = df9, aes(x = "3", y= Y_RMSE, color = "Position3RMSE"),shape = 4)+
+  theme_bw()+
+   scale_color_manual(
+    labels = c("Point1RMSE","Point2RMSE","Point3RMSE"), 
+    values = c("red","black","blue"))+ 
   theme(
-    text = element_text(size = 12, color = "black", face = "bold", family="Comic Sans MS"),
-    axis.title.x  =  element_text(color = "blue", size = 12, face = "bold"),
-    axis.title.y  =  element_text(color = "#993333", size = 12, face = "bold"))+
+    text = element_text(size = 10, color = "black"),
+    axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
+    axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
-    title =  "Total Root Mean Square Error of All the Data in Y vs Tag Position",
     y = "Total Root Mean Square Error Y in (meters)",
     x = "Tag Position")
   
@@ -327,8 +336,9 @@ ggplotly(p1)
 p2$labels$colour <-"Legend"
 ggplotly(p2)
 ```
+
 ```{r}
-wrap_plots(p1,p2)
+wrap_plots(p1,p2)+ plot_annotation(title = '      Ex2 Root Mean Square Error of All Data vs Tag Positions in X and Y')
 ```
 
 
@@ -408,21 +418,19 @@ Comp <- ggplot()+
   geom_point(data = Area3, aes(x= Point2[1], y=Point2[2], color= "Area_3"), shape= 3)+
   geom_point(data = Area3, aes(x= Point3[1], y=Point3[2], color= "Area_3"), shape= 3)+
   theme_bw()+
+  scale_color_manual(
+    values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
   theme(
-    text = element_text(size = 12, color = "black", face = "bold", family="Comic Sans MS"),
-    axis.title.x  =  element_text(color = "blue", size = 12, face = "bold"),
-    axis.title.y  =  element_text(color = "#993333", size = 12, face = "bold"))+
+    text = element_text(size = 10, color = "black"),
+    axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
+    axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
-    title = "      Ground Truth Measurment (Laser Tool) vs UWB Reading",
     y = "Distance in Y (meters)",
-    x = "Distance in X (meters)",
-    shape = "nn")
-
-  
+    x = "Distance in X (meters)")
 ```
 
 ```{r echo=FALSE}
-Comp$labels$colour<- "Legend"
 ggplotly(Comp)
 ```
 * An overall comparison of how the total RMSE of the observations between the 3 areas can be observed in this plot. We can observe that the most significant error is observed at point 2 in Area 1. While the best over all RMSE can be observed for the 3 points all together at Area 3 for both the x and y.
@@ -434,13 +442,13 @@ a1 <- ggplot()+
   geom_point(data = df3, aes(x = X_RMSE, y=Y_RMSE, color = "black"))+
   theme_bw()+
   theme(
-    text = element_text(size = 10, color = "black", face = "bold", family="Comic Sans MS"),
+    text = element_text(size = 10, color = "black"),
     axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
     axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
     title = "",
-    y = "Total RMS Error in Y (meters)",
-    x = "Total RMS Error in X (meters)")+
+    y = "RMSE in Y (meters)",
+    x = "RMSE in X (meters)")+
   scale_color_identity(name = "Legend",
                        breaks  =c("red","blue","black"),
                        labels = c("Point1RMS","Point2RMS","Point3RMS"))
@@ -452,13 +460,13 @@ a2<-ggplot()+
   geom_point(data = df6, aes(x = X_RMSE, y=Y_RMSE, color = "black"))+
   theme_bw()+
   theme(
-    text = element_text(size = 10, color = "black", face = "bold", family="Comic Sans MS"),
+    text = element_text(size = 10, color = "black"),
     axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
     axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
     title = "",
-    y = "Total RMS Error in Y (meters)",
-    x = "Total RMS Error in X (meters)")+
+    y = "RMSE in Y (meters)",
+    x = "RMSE in X (meters)")+
   scale_color_identity(name = "Legend",
                        breaks  =c("red","blue","black"),
                        labels = c("Point1RMS","Point2RMS","Point3RMS"))
@@ -470,26 +478,26 @@ a3<- ggplot()+
   geom_point(data = df9, aes(x = X_RMSE, y=Y_RMSE, color = "black"))+
   theme_bw()+
   theme(
-    text = element_text(size = 10, color = "black", face = "bold", family="Comic Sans MS"),
+    text = element_text(size = 10, color = "black"),
     axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
     axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
     title = "",
-    y = "Total RMS Error in Y (meters)",
-    x = "Total RMS Error in X (meters)")+
+    y = "RMSE in Y (meters)",
+    x = "RMSE in X (meters)")+
   scale_color_manual(name = "Legend",
-                       values   =c("red","blue","black"),
+                       values   =c("red","black","blue"),
                        labels = c("Point1RMSE","Point2RMSE","Point3RMSE"))
   
 ```
 
 ```{r echo=FALSE}
-wrap_plots(a1,a2,a3)+plot_annotation(title = '              Comparison between the Total XY RMS Error for the 3 Areas')+plot_annotation(tag_levels = c('1','1'))
+wrap_plots(a1,a2,a3)+plot_annotation(title = '             Ex2 Comparison between the Total XY RMS Error for the 3 Areas')+plot_annotation(tag_levels = c('1','1'))
 
 ```
 
 ```{r include=FALSE}
-df <- data.frame(n = c("xRMSE", "yRMSE","dRMSE"), `Point1/Area1` = c(df1$X_RMSE, df1$Y_RMSE, sqrt(df1$X_RMSE^2+df1$Y_RMSE^2)), `Point2/Area1` = c(df2$X_RMSE, df2$Y_RMSE, sqrt(df2$X_RMSE^2+df2$Y_RMSE^2)), `Point3/Area1` = c(df3$X_RMSE,
+df <- data.frame(n = c("xRMS", "yRMS","dRMS"), `Point1/Area1` = c(df1$X_RMSE, df1$Y_RMSE, sqrt(df1$X_RMSE^2+df1$Y_RMSE^2)), `Point2/Area1` = c(df2$X_RMSE, df2$Y_RMSE, sqrt(df2$X_RMSE^2+df2$Y_RMSE^2)), `Point3/Area1` = c(df3$X_RMSE,
     df3$Y_RMSE, sqrt(df3$X_RMSE^2+df3$Y_RMSE^2)), `Point1/Area2` = c(df4$X_RMSE, df4$Y_RMSE, sqrt(df4$X_RMSE^2+df4$Y_RMSE^2)), `Point2/Area2` = c(df5$X_RMSE, df5$Y_RMSE, sqrt(df5$X_RMSE^2+df5$Y_RMSE^2)), `Point3/Area2` = c(df6$X_RMSE, df6$Y_RMSE, sqrt(df6$X_RMSE^2+df6$Y_RMSE^2)),
     `Point1/Area3` = c(df7$X_RMSE, df7$Y_RMSE, sqrt(df7$X_RMSE^2+df7$Y_RMSE^2)), `Point2/Area3` = c(df8$X_RMSE, df8$Y_RMSE, sqrt(df8$X_RMSE^2+df8$Y_RMSE^2)), `Point3/Area3` = c(df9$X_RMSE, df9$Y_RMSE, sqrt(df9$X_RMSE^2+df9$Y_RMSE^2)))
 ```
@@ -497,7 +505,7 @@ df <- data.frame(n = c("xRMSE", "yRMSE","dRMSE"), `Point1/Area1` = c(df1$X_RMSE,
 * This table shows the RMSE for both x and y over the whole experiment.
 ```{r echo=FALSE}
 df%>%
-  kbl(caption = "Total Root Mean Square Error in (meteres)")%>%
+  kbl(caption = " Exp2 Total Root Mean Square Error in (meters)")%>%
     kable_styling(bootstrap_options = "striped", font_size = 11)
 ```
 
@@ -519,29 +527,29 @@ PDOP_3<- data.frame(Point1 =6.3711, Point2= 1.16655, Point3= 2.21881)
 
 ```{r include=FALSE}
 Pdop <- ggplot()+
-  geom_point(data = PDOP_1, aes(x = "Area1", y = Point1, color = "Point1"),shape = 3)+
-  geom_point(data = PDOP_1, aes(x = "Area1", y = Point2, color = "Point2"),shape = 3)+
-  geom_point(data = PDOP_1, aes(x = "Area1", y = Point3, color = "Point3"),shape = 3)+
-  geom_point(data = PDOP_2, aes(x = "Area2", y = Point1, color = "Point1"),shape = 3)+
-  geom_point(data = PDOP_2, aes(x = "Area2", y = Point2, color = "Point2"),shape = 3)+
-  geom_point(data = PDOP_2, aes(x = "Area2", y = Point3, color = "Point3"),shape = 3)+
-  geom_point(data = PDOP_3, aes(x = "Area3", y = Point1, color = "Point1"),shape = 3)+
-  geom_point(data = PDOP_3, aes(x = "Area3", y = Point2, color = "Point2"),shape = 3)+
-  geom_point(data = PDOP_3, aes(x = "Area3", y = Point3, color = "Point3"),shape = 3)+
+  geom_point(data = PDOP_1, aes(x = "Area1", y = Point1, color = "Position1"),shape = 3)+
+  geom_point(data = PDOP_1, aes(x = "Area1", y = Point2, color = "Position2"),shape = 3)+
+  geom_point(data = PDOP_1, aes(x = "Area1", y = Point3, color = "Position3"),shape = 3)+
+  geom_point(data = PDOP_2, aes(x = "Area2", y = Point1, color = "Position1"),shape = 3)+
+  geom_point(data = PDOP_2, aes(x = "Area2", y = Point2, color = "Position2"),shape = 3)+
+  geom_point(data = PDOP_2, aes(x = "Area2", y = Point3, color = "Position3"),shape = 3)+
+  geom_point(data = PDOP_3, aes(x = "Area3", y = Point1, color = "Position1"),shape = 3)+
+  geom_point(data = PDOP_3, aes(x = "Area3", y = Point2, color = "Position2"),shape = 3)+
+  geom_point(data = PDOP_3, aes(x = "Area3", y = Point3, color = "Position3"),shape = 3)+
   theme_bw()+
+  scale_color_manual(
+    values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
   theme(
-    text = element_text(size = 12, color = "black", face = "bold", family="Comic Sans MS"),
-    axis.title.x  =  element_text(color = "blue", size = 12, face = "bold"),
-    axis.title.y  =  element_text(color = "#993333", size = 12, face = "bold"))+
+    text = element_text(size = 10, color = "black"),
+    axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
+    axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
-    title = "                 Position Dilution of Precision Analysis",
     y = "Position Dilution of Percision",
-    x = "Number of Areas",
-    shape = "nn")
+    x = "Number of Areas")
 ```
 
 ```{r echo=FALSE}
-Pdop$labels$colour <- "Legend"
 ggplotly(Pdop)
 ```
 
