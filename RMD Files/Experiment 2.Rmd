@@ -325,12 +325,10 @@ p2 <- ggplot()+
   
 ```
 
-
 ```{r echo=FALSE}
 p1$labels$colour <-"Legend"
 ggplotly(p1)
 ```
-
 
 ```{r echo=FALSE}
 p2$labels$colour <-"Legend"
@@ -340,9 +338,6 @@ ggplotly(p2)
 ```{r}
 wrap_plots(p1,p2)+ plot_annotation(title = '      Ex2 Root Mean Square Error of All Data vs Tag Positions in X and Y')
 ```
-
-
-
 * The comparison between the ground truth measurement and the UWB reading is shown in this figure. 
 
 ```{r include=FALSE}

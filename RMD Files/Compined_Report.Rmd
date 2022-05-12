@@ -77,7 +77,7 @@ Figure 1 depicts how the Root Mean Square Error (RMSE) of all data scales with t
 ```{r echo=FALSE, fig.align='center', fig.cap="Comparison between RMSE vs Area Size for Exp1 and Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
 knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp200005.png"))
 ```
-### RMSE vs Tag Position Size
+### RMSE vs Tag Position
 
 The comparison between the Total RMSE of all location data and the Tag position is shown in Figure 2. For Exp1, the tag position number 2 has the lowest RMSE; however, for Exp2, the tag position number 3 has the best RMSE values of all three places. As a result, Exp2 results are superior in the sense that the Area covered at position 3 is greater, allowing for greater freedom when positioning or repositioning the tag.
 
@@ -112,7 +112,7 @@ We may deduce from the PDOP data that the Exp1 Area 2 setup has the lowest error
 ```{r echo=FALSE, fig.align='center', fig.cap="Position Dilution of Precision Exp1 vs Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
 knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1.5.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp200001.png"))
 ```
-### Summery of the both the RMSE FOR Exp1 and Exp2
+### Summary of the both the RMSE FOR Exp1 and Exp2
 
 ```{r echo=FALSE, fig.cap="", fig.show='hold', warning=FALSE}
 knitr::include_graphics("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1Table.png")
