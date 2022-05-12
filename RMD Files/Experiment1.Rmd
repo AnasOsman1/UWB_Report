@@ -27,7 +27,7 @@ library(fs)
 library(tidyverse)
 
 
-file_paths <- fs::dir_ls("/home/anas/Music/data/data")
+file_paths <- fs::dir_ls("/Users/anasosman/Downloads/UWB_Report/Data-exp/data")
 file_paths
 
 # 1.0 FOR LOOP ----
@@ -52,35 +52,35 @@ file_paths %>%
 ```
 
 ```{r include=FALSE}
-df1<-file_contents$`/home/anas/Music/data/data/Area11R1.csv`
-df2<-file_contents$`/home/anas/Music/data/data/Area11R2.csv`
-df3<-file_contents$`/home/anas/Music/data/data/Area11R3.csv`
-df4<-file_contents$`/home/anas/Music/data/data/Area12R1.csv`
-df5<-file_contents$`/home/anas/Music/data/data/Area12R2.csv`
-df6<-file_contents$`/home/anas/Music/data/data/Area12R3.csv`
-df7<-file_contents$`/home/anas/Music/data/data/Area13R1.csv`
-df8<-file_contents$`/home/anas/Music/data/data/Area13R2.csv`
-df9<-file_contents$`/home/anas/Music/data/data/Area13R3.csv`
+df1<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area11R1.csv`
+df2<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area11R2.csv`
+df3<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area11R3.csv`
+df4<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area12R1.csv`
+df5<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area12R2.csv`
+df6<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area12R3.csv`
+df7<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area13R1.csv`
+df8<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area13R2.csv`
+df9<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area13R3.csv`
 ######################################################
-df10<-file_contents$`/home/anas/Music/data/data/Area21R1.csv`
-df11<-file_contents$`/home/anas/Music/data/data/Area21R2.csv`
-df12<-file_contents$`/home/anas/Music/data/data/Area21R3.csv`
-df13<-file_contents$`/home/anas/Music/data/data/Area22R1.csv`
-df14<-file_contents$`/home/anas/Music/data/data/Area22R2.csv`
-df15<-file_contents$`/home/anas/Music/data/data/Area22R3.csv`
-df16<-file_contents$`/home/anas/Music/data/data/Area23R1.csv`
-df17<-file_contents$`/home/anas/Music/data/data/Area23R2.csv`
-df18<-file_contents$`/home/anas/Music/data/data/Area23R3.csv`
+df10<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area21R1.csv`
+df11<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area21R2.csv`
+df12<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area21R3.csv`
+df13<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area22R1.csv`
+df14<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area22R2.csv`
+df15<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area22R3.csv`
+df16<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area23R1.csv`
+df17<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area23R2.csv`
+df18<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area23R3.csv`
 #####################################################
-df19<-file_contents$`/home/anas/Music/data/data/Area31R1.csv`
-df20<-file_contents$`/home/anas/Music/data/data/Area31R2.csv`
-df21<-file_contents$`/home/anas/Music/data/data/Area31R3.csv`
-df22<-file_contents$`/home/anas/Music/data/data/Area32R1.csv`
-df23<-file_contents$`/home/anas/Music/data/data/Area32R2.csv`
-df24<-file_contents$`/home/anas/Music/data/data/Area32R3.csv`
-df25<-file_contents$`/home/anas/Music/data/data/Area33R1.csv`
-df26<-file_contents$`/home/anas/Music/data/data/Area33R2.csv`
-df27<-file_contents$`/home/anas/Music/data/data/Area33R3.csv`
+df19<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area31R1.csv`
+df20<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area31R2.csv`
+df21<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area31R3.csv`
+df22<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area32R1.csv`
+df23<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area32R2.csv`
+df24<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area32R3.csv`
+df25<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area33R1.csv`
+df26<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area33R2.csv`
+df27<-file_contents$`/Users/anasosman/Downloads/UWB_Report/Data-exp/data/Area33R3.csv`
 ```
 
 ```{r include=FALSE}
@@ -325,21 +325,21 @@ y <- ggplot()+
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
-include_graphics('/home/anas/Pictures/New2.png')
+#include_graphics('/home/anas/Pictures/New2.png')
 ```
 
 * This figure shows the smallest Area and the 3 ground truth points, that the data were sampled at for 3 minutes each. 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-include_graphics('/home/anas/Pictures/New3.png')
+#include_graphics('/home/anas/Pictures/New3.png')
 ```
 
 * This figure shows Area2 and the 3 ground truth points, that the data were sampled at for 3 minutes each. 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-include_graphics('/home/anas/Pictures/New4.png')
+#include_graphics('/home/anas/Pictures/New4.png')
 ```
 * This figure shows the largest Area and the 3 ground truth points, that the data were sampled at for 3 minutes each. 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-include_graphics('/home/anas/Pictures/New5.png')
+#include_graphics('/home/anas/Pictures/New5.png')
 ```
 
 
@@ -410,18 +410,17 @@ b <-data.frame(a=c("Point1","Point2","Point3"))
 f <- data.frame(n = c("xRMSE","yRMSE", "dRMSE") ,"Point1"=p1,"Point2"=p2,"Point3"=p3,"Point1"=p4,"Point2"=p5,"Point3"=p6,
                 "Point1"=p7,"Point2"=p8,"Point3"=p9)
 wx <- ggplot(data=f)+
-  geom_point(aes(x="1", y=p1[1],color="Position1RMSE"),shape=4)+
-  geom_point(aes(x="1", y=p4[1],color="Position1RMSE"),shape=4)+
-  geom_point(aes(x="1", y=p7[1],color="Position1RMSE"),shape=4)+
-  geom_point(aes(x="2", y=p2[1],color="Position2RMSE"),shape=4)+
-  geom_point(aes(x="2", y=p5[1],color="Position2RMSE"),shape=4)+
-  geom_point(aes(x="2", y=p8[1],color="Position2RMSE"),shape=4)+
-  geom_point(aes(x="3", y=p3[1],color="Position3RMSE"),shape=4)+
-  geom_point(aes(x="3", y=p6[1],color="Position3RMSE"),shape=4)+
-  geom_point(aes(x="3", y=p9[1],color="Position3RMSE"),shape=4)+
+  geom_point(aes(x="1", y=p1[1],color="Point1RMSE"),shape=4)+
+  geom_point(aes(x="1", y=p4[1],color="Point1RMSE"),shape=4)+
+  geom_point(aes(x="1", y=p7[1],color="Point1RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p2[1],color="Point2RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p5[1],color="Point2RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p8[1],color="Point2RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p3[1],color="Point3RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p6[1],color="Point3RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p9[1],color="Point3RMSE"),shape=4)+
   theme_bw()+
   scale_color_manual(
-    labels = c("Position1RMSE","Position2RMSE", "Position3RMSE"),
     values = c("red","black","blue"))+ 
   guides(color = guide_legend("Legend"))+
   theme(text = element_text(size = 10), 
@@ -431,20 +430,19 @@ wx <- ggplot(data=f)+
        x = "Tag Position")
 
 wy <- ggplot(data=f)+
-  geom_point(aes(x="1", y=p1[2],color="Position1RMSE"),shape=4)+
-  geom_point(aes(x="1", y=p4[2],color="Position1RMSE"),shape=4)+
-  geom_point(aes(x="1", y=p7[2],color="Position1RMSE"),shape=4)+
-  geom_point(aes(x="2", y=p2[2],color="Position2RMSE"),shape=4)+
-  geom_point(aes(x="2", y=p5[2],color="Position2RMSE"),shape=4)+
-  geom_point(aes(x="2", y=p8[2],color="Position2RMSE"),shape=4)+
-  geom_point(aes(x="3", y=p3[2],color="Position3RMSE"),shape=4)+
-  geom_point(aes(x="3", y=p6[2],color="Position3RMSE"),shape=4)+
-  geom_point(aes(x="3", y=p9[2],color="Position3RMSE"),shape=4)+
+  geom_point(aes(x="1", y=p1[2],color="Point1RMSE"),shape=4)+
+  geom_point(aes(x="1", y=p4[2],color="Point1RMSE"),shape=4)+
+  geom_point(aes(x="1", y=p7[2],color="Point1RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p2[2],color="Point2RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p5[2],color="Point2RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p8[2],color="Point2RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p3[2],color="Point3RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p6[2],color="Point3RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p9[2],color="Point3RMSE"),shape=4)+
   theme_bw()+
   labs(y = "Total Root Mean Square Error in Y (meters)",
        x = "Tag Position")+
   scale_color_manual(
-    labels = c("Position1RMSE","Position2RMSE", "Position3RMSE"),
     values = c("red","black","blue"))+ 
   guides(color = guide_legend("Legend"))+
   theme(text = element_text(size = 10), 
@@ -503,32 +501,32 @@ library(ggrepel)
 library(ggpp)
 
 k <-ggplot()+
-  geom_point(data = she, aes(x=h1[1],y=h1[2], color= "Area1"),shape=1)+
-  geom_point(data = she, aes(x=h2[1],y=h2[2], color= "Area2"),shape=1)+
-  geom_point(data = she, aes(x=h3[1],y=h3[2], color= "Area3"),shape=1)+
-  geom_point(data = she1, aes(x=h1[1],y=h1[2], color="Area1"),shape=1)+
-  geom_point(data = she1, aes(x=h2[1],y=h2[2], color="Area2"),shape=1)+
-  geom_point(data = she1, aes(x=h3[1],y=h3[2], color="Area3"),shape=1)+
-  geom_point(data = she2, aes(x=h1[1],y=h1[2], color="Area1"),shape=1)+
-  geom_point(data = she2, aes(x=h2[1],y=h2[2], color="Area2"),shape=1)+
-  geom_point(data = she2, aes(x=h3[1],y=h3[2], color="Area3"),shape=1)+
-  geom_point(data = sha, aes(x=h1[1],y=h1[2] , color="Area1"),shape=3)+
-  geom_point(data = sha, aes(x=h2[1],y=h2[2] , color="Area2"),shape=3)+
-  geom_point(data = sha, aes(x=h3[1],y=h3[2] , color="Area3"),shape=3)+
-  geom_point(data = sha1, aes(x=h1[1],y=h1[2], color="Area1"),shape=3)+
-  geom_point(data = sha1, aes(x=h2[1],y=h2[2], color="Area2"),shape=3)+
-  geom_point(data = sha1, aes(x=h3[1],y=h3[2], color="Area3"),shape=3)+
-  geom_point(data = sha2, aes(x=h1[1],y=h1[2], color="Area1"),shape=3)+
-  geom_point(data = sha2, aes(x=h2[1],y=h2[2], color="Area2"),shape=3)+
-  geom_point(data = sha2, aes(x=h3[1],y=h3[2], color="Area3"),shape=3)+
+  geom_point(data = she, aes(x=h1[1],y=h1[2], color= "UWB1"),shape=4)+
+  geom_point(data = she, aes(x=h2[1],y=h2[2], color= "UWB2"),shape=4)+
+  geom_point(data = she, aes(x=h3[1],y=h3[2], color= "UWB3"),shape=4)+
+  geom_point(data = she1, aes(x=h1[1],y=h1[2], color="UWB1"),shape=4)+
+  geom_point(data = she1, aes(x=h2[1],y=h2[2], color="UWB2"),shape=4)+
+  geom_point(data = she1, aes(x=h3[1],y=h3[2], color="UWB3"),shape=4)+
+  geom_point(data = she2, aes(x=h1[1],y=h1[2], color="UWB1"),shape=4)+
+  geom_point(data = she2, aes(x=h2[1],y=h2[2], color="UWB2"),shape=4)+
+  geom_point(data = she2, aes(x=h3[1],y=h3[2], color="UWB3"),shape=4)+
+  geom_point(data = sha, aes(x=h1[1],y=h1[2] , color="GT1"),shape=3)+
+  geom_point(data = sha, aes(x=h2[1],y=h2[2] , color="GT2"),shape=3)+
+  geom_point(data = sha, aes(x=h3[1],y=h3[2] , color="GT3"),shape=3)+
+  geom_point(data = sha1, aes(x=h1[1],y=h1[2], color="GT1"),shape=3)+
+  geom_point(data = sha1, aes(x=h2[1],y=h2[2], color="GT2"),shape=3)+
+  geom_point(data = sha1, aes(x=h3[1],y=h3[2], color="GT3"),shape=3)+
+  geom_point(data = sha2, aes(x=h1[1],y=h1[2], color="GT1"),shape=3)+
+  geom_point(data = sha2, aes(x=h2[1],y=h2[2], color="GT2"),shape=3)+
+  geom_point(data = sha2, aes(x=h3[1],y=h3[2], color="GT3"),shape=3)+
   theme_bw()+
   scale_color_manual(
-    values = c("red","black","blue"))+ 
+    values = c("red","black","blue","red","black","blue"))+ 
   guides(color = guide_legend("Legend"))+
   labs(
     tag = "Figure 1",
-    x = "Distance in x (meters)",
-    y = "Distance in y (meters)")+
+    x = "Distance in X for each measurment (meters)",
+    y = "Distance in Y for each measurment (meters)")+
     theme(text = element_text(size = 10), 
           axis.title.x = element_text(color="blue", size=10,  face="bold"), 
           axis.title.y = element_text(color="#993333", size=10, face="bold"))
@@ -536,13 +534,89 @@ k <-ggplot()+
 
 ```{r echo=FALSE, warning=FALSE}
 library(plotly)
-ggplotly(k)%>% config(displayModeBar = F)
+ggplotly(k)
 ```
 
 
+```{r include=FALSE}
+library(ggforce)
+kx <-ggplot()+
+  geom_point(data = she, aes( x="Area1",y=h1[1], color="UWB_Area1"),shape=4)+
+  geom_point(data = she, aes( x="Area2",y=h2[1], color="UWB_Area2"),shape=4)+
+  geom_point(data = she, aes( x="Area3",y=h3[1], color="UWB_Area3"),shape=4)+
+  geom_point(data = she1, aes(x="Area1",y=h1[1], color="UWB_Area1"),shape=4)+
+  geom_point(data = she1, aes(x="Area2",y=h2[1], color="UWB_Area2"),shape=4)+
+  geom_point(data = she1, aes(x="Area3",y=h3[1], color="UWB_Area3"),shape=4)+
+  geom_point(data = she2, aes(x="Area1",y=h1[1], color="UWB_Area1"),shape=4)+
+  geom_point(data = she2, aes(x="Area2",y=h2[1], color="UWB_Area2"),shape=4)+
+  geom_point(data = she2, aes(x="Area3",y=h3[1], color="UWB_Area3"),shape=4)+
+  geom_point(data = sha, aes( x="Area1",y=h1[1], color="GT_Area1"),shape=3)+
+  geom_point(data = sha, aes( x="Area2",y=h2[1], color="GT_Area2"),shape=3)+
+  geom_point(data = sha, aes( x="Area3",y=h3[1], color="GT_Area3"),shape=3)+
+  geom_point(data = sha1, aes(x="Area1",y=h1[1], color="GT_Area1"),shape=3)+
+  geom_point(data = sha1, aes(x="Area2",y=h2[1], color="GT_Area2"),shape=3)+
+  geom_point(data = sha1, aes(x="Area3",y=h3[1], color="GT_Area3"),shape=3)+
+  geom_point(data = sha2, aes(x="Area1",y=h1[1], color="GT_Area1"),shape=3)+
+  geom_point(data = sha2, aes(x="Area2",y=h2[1], color="GT_Area2"),shape=3)+
+  geom_point(data = sha2, aes(x="Area3",y=h3[1], color="GT_Area3"),shape=3)+
+  theme_bw()+
+  scale_color_manual(
+    values = c("red","black","#008080", "blue", "#00FF00", "#FF00FF"))+ 
+  guides(color = guide_legend("Legend"))+
+  labs(
+    tag = "Figure 1",
+    x = "Number of Areas",
+    y = "Distance in X (meters)")+
+    theme(text = element_text(size = 10), 
+          axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+          axis.title.y = element_text(color="#993333", size=10, face="bold"))
+```
+
+
+```{r echo=FALSE}
+ggplotly(kx)
+```
 
 ```{r include=FALSE}
-f <- data.frame(n = c("xRMS","yRMS", "dRMS") ,"point1"=p1,"point2"=p2,"point3"=p3,"point1"=p4,"point2"=p5,"point3"=p6,"point1"=p7,"point2"=p8,"point3"=p9)
+ky <-ggplot()+
+  geom_point(data = she,  aes(x = "Area1",y = h1[2],color="UWB1_Area1"),shape=4)+
+  geom_point(data = she,  aes(x = "Area2",y = h2[2],color="UWB2_Area2"),shape=4)+
+  geom_point(data = she,  aes(x = "Area3",y = h3[2],color="UWB3_Area3"),shape=4)+
+  geom_point(data = she1, aes(x = "Area1",y = h1[2],color="UWB1_Area1"),shape=4)+
+  geom_point(data = she1, aes(x = "Area2",y = h2[2],color="UWB2_Area2"),shape=4)+
+  geom_point(data = she1, aes(x = "Area3",y = h3[2],color="UWB3_Area3"),shape=4)+
+  geom_point(data = she2, aes(x = "Area1",y = h1[2],color="UWB1_Area1"),shape=4)+
+  geom_point(data = she2, aes(x = "Area2",y = h2[2],color="UWB2_Area2"),shape=4)+
+  geom_point(data = she2, aes(x = "Area3",y = h3[2],color="UWB3_Area3"),shape=4)+
+  geom_point(data = sha,  aes(x = "Area1",y = h1[2],color="GT1_Area1"),shape=3)+
+  geom_point(data = sha,  aes(x = "Area2",y = h2[2],color="GT2_Area2"),shape=3)+
+  geom_point(data = sha,  aes(x = "Area3",y = h3[2],color="GT3_Area3"),shape=3)+
+  geom_point(data = sha1, aes(x = "Area1",y = h1[2],color="GT1_Area1"),shape=3)+
+  geom_point(data = sha1, aes(x = "Area2",y = h2[2],color="GT2_Area2"),shape=3)+
+  geom_point(data = sha1, aes(x = "Area3",y = h3[2],color="GT3_Area3"),shape=3)+
+  geom_point(data = sha2, aes(x = "Area1",y = h1[2],color="GT1_Area1"),shape=3)+
+  geom_point(data = sha2, aes(x = "Area2",y = h2[2],color="GT2_Area2"),shape=3)+
+  geom_point(data = sha2, aes(x = "Area3",y = h3[2],color="GT3_Area3"),shape=3)+
+  theme_bw()+
+  scale_color_manual(
+    values = c("red","black","#008080", "blue", "#00FF00", "#FF00FF"))+ 
+  guides(color = guide_legend("Legend"))+
+  labs(
+    tag = "Figure 1",
+    x = "Number of Areas",
+    y = "Distance in Y (meters)")+
+    theme(text = element_text(size = 12), 
+          axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+          axis.title.y = element_text(color="#993333", size=10, face="bold"))
+```
+
+
+```{r echo=FALSE}
+ggplotly(ky)
+```
+
+```{r include=FALSE}
+f <- data.frame(n = c("xRMS","yRMS", "dRMS"),"point1"=p1,"point2"=p2,"point3"=p3,"point1"=p4,"point2"=p5,"point3"=p6,"point1"=p7,"point2"=p8,"point3"=p9)
 
 gg2<-data.frame(a=c("point1","point2","point3"))
 legend <- gg2$a[1]
@@ -551,7 +625,7 @@ bp <-ggplot(data = f)+
   geom_point(aes(x = p1[1], y=p1[2]), color = "red")+
   geom_point(aes(x = p2[1], y=p2[2]), color = "black")+
   geom_point(aes(x = p3[1], y=p3[2]), color = "blue")+
-  labs(
+  labs(title = "    Area1",
        y = "RMSE in Y (meters)",
        x = "RMSE in X (meters)",
        colour = "")+
@@ -559,13 +633,15 @@ bp <-ggplot(data = f)+
                           breaks = c("red", "black", "blue"),
                           labels = c("Point1RMS", "Point2RMS", "Point3RMS"),
                           guide = "legend")+ theme_bw()+
-  theme(text = element_text(size = 10), axis.title.x = element_text(color="blue", size=10,  face="bold"),      axis.title.y = element_text(color="#993333", size=10, face="bold"))
+  theme(text = element_text(size = 10), 
+        axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+        axis.title.y = element_text(color="#993333", size=10, face="bold"))
 
 bp2<-ggplot(data = f)+
   geom_point(aes(x = p4[1], y=p4[2]), color = "red")+
   geom_point(aes(x = p5[1], y=p5[2]), color = "black")+
   geom_point(aes(x = p6[1], y=p6[2]), color = "blue")+
-  labs(
+  labs(title = "    Area2",
        y = "RMSE in Y (meters)",
        x = "RMSE in X (meters)",
        colour = "")+
@@ -573,29 +649,34 @@ bp2<-ggplot(data = f)+
                           breaks = c("red", "black", "blue"),
                           labels = c("Point1RMS", "Point2RMS", "Point3RMS"),
                           guide = "legend")+ theme_bw()+
-  theme(text = element_text(size = 10), axis.title.x = element_text(color="blue", size=10,  face="bold"),      axis.title.y = element_text(color="#993333", size=10, face="bold"))
+  theme(text = element_text(size = 10), 
+        axis.title.x = element_text(color="blue", size=10, face="bold"), 
+        axis.title.y = element_text(color="#993333", size=10, face="bold"))
 
 bp3<-ggplot(data = f)+
   geom_point(aes(x = p7[1], y=p7[2], color = "red" ))+
   geom_point(aes(x = p8[1], y=p8[2], color = "black"))+
   geom_point(aes(x = p9[1], y=p9[2], color = "blue"))+
   theme_bw()+
-  labs(
+  labs(title = "    Area3",
        y = "RMSE in Y (meters)",
        x = "RMSE in X (meters)",
        colour = "")+scale_color_identity(name = "Legend",
                           breaks = c("red", "black", "blue"),
                           labels = c("Point1RMS", "Point2RMS", "Point3RMS"),
                           guide = "legend")+ theme_bw()+
-  theme(text = element_text(size = 10), axis.title.x = element_text(color="blue", size=10,  face="bold"),      axis.title.y = element_text(color="#993333", size=10, face="bold"))
+  theme(text = element_text(size = 10), 
+        axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+        axis.title.y = element_text(color="#993333", size=10, face="bold"))
+
 ```
 
-* A side by side comparison of the overall xy RMS is illustrated in this plot.
+* A side by side comparison of the overall XY RMS is illustrated in this plot.
 ```{r echo=FALSE}
 library(grid)
 library(patchwork)
 
-wrap_plots(bp,bp2,bp3)+  plot_annotation(title = '               Exp1 Comparison between the Total XY RMS Error for the 3 Areas')+ plot_annotation(tag_levels = c('1','1'))
+wrap_plots(bp,bp2,bp3)+  plot_annotation(title = '               Exp1 Comparison between the Total XY RMS Error for the 3 Areas')+ plot_annotation(tag_levels = c('A','1'))
   
 ```
 
@@ -648,7 +729,7 @@ n11 <-ggplot()+
 Overall, we can observe that the lowest RMSE lies at Area 2 which is also verified by the PDOP values, however further improvement would are possible with further change of the anchor placement configuration in the absolute line of sight, while also trying to mitigate the effect of the Fresnel Zone.
 
 ```{r echo=FALSE}
-ggplotly(n11, tooltip = "non") %>% config(displayModeBar = F)
+ggplotly(n11)
 ```
 
 ```{r eval=FALSE, include=FALSE}
