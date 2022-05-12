@@ -1,0 +1,665 @@
+---
+title: "Weekly Report"
+author: "Anas Osman"
+data: "April 12, 2022"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+  html_document:
+    df_print: paged
+---
+
+```{r include=FALSE}
+library(ggthemes)
+library(ggplot2)
+library(tidyverse)
+library(fs)
+library(plotly)
+library(grid)
+library(gridExtra)
+```
+
+
+```{r include=FALSE}
+
+library(fs)
+library(tidyverse)
+
+
+file_paths <- fs::dir_ls("/home/anas/Music/data/data")
+file_paths
+
+# 1.0 FOR LOOP ----
+
+file_contents <- list()
+
+for (i in seq_along(file_paths)) {
+    file_contents[[i]] <- read_csv(
+        file = file_paths[[i]]
+    )
+}
+
+file_contents <- set_names(file_contents, file_paths)
+
+
+# 2.0 PURRR MAP ----
+
+file_paths %>%
+    map(function (path) {
+        read_csv(path)
+    })
+```
+
+```{r include=FALSE}
+df1<-file_contents$`/home/anas/Music/data/data/Area11R1.csv`
+df2<-file_contents$`/home/anas/Music/data/data/Area11R2.csv`
+df3<-file_contents$`/home/anas/Music/data/data/Area11R3.csv`
+df4<-file_contents$`/home/anas/Music/data/data/Area12R1.csv`
+df5<-file_contents$`/home/anas/Music/data/data/Area12R2.csv`
+df6<-file_contents$`/home/anas/Music/data/data/Area12R3.csv`
+df7<-file_contents$`/home/anas/Music/data/data/Area13R1.csv`
+df8<-file_contents$`/home/anas/Music/data/data/Area13R2.csv`
+df9<-file_contents$`/home/anas/Music/data/data/Area13R3.csv`
+######################################################
+df10<-file_contents$`/home/anas/Music/data/data/Area21R1.csv`
+df11<-file_contents$`/home/anas/Music/data/data/Area21R2.csv`
+df12<-file_contents$`/home/anas/Music/data/data/Area21R3.csv`
+df13<-file_contents$`/home/anas/Music/data/data/Area22R1.csv`
+df14<-file_contents$`/home/anas/Music/data/data/Area22R2.csv`
+df15<-file_contents$`/home/anas/Music/data/data/Area22R3.csv`
+df16<-file_contents$`/home/anas/Music/data/data/Area23R1.csv`
+df17<-file_contents$`/home/anas/Music/data/data/Area23R2.csv`
+df18<-file_contents$`/home/anas/Music/data/data/Area23R3.csv`
+#####################################################
+df19<-file_contents$`/home/anas/Music/data/data/Area31R1.csv`
+df20<-file_contents$`/home/anas/Music/data/data/Area31R2.csv`
+df21<-file_contents$`/home/anas/Music/data/data/Area31R3.csv`
+df22<-file_contents$`/home/anas/Music/data/data/Area32R1.csv`
+df23<-file_contents$`/home/anas/Music/data/data/Area32R2.csv`
+df24<-file_contents$`/home/anas/Music/data/data/Area32R3.csv`
+df25<-file_contents$`/home/anas/Music/data/data/Area33R1.csv`
+df26<-file_contents$`/home/anas/Music/data/data/Area33R2.csv`
+df27<-file_contents$`/home/anas/Music/data/data/Area33R3.csv`
+```
+
+```{r include=FALSE}
+# Function defination
+all <- function(data1, data2, data3, gx , gy){
+library(dplyr)
+library(ggExtra)
+  data1 <- data1%>% 
+  rename(x = `/dwm1001/id_458E/pose_kf/pose/position/x`,
+         y = `/dwm1001/id_458E/pose_kf/pose/position/y`)
+  data2 <-data2%>% 
+  rename(
+   x = `/dwm1001/id_458E/pose_kf/pose/position/x`,
+   y= `/dwm1001/id_458E/pose_kf/pose/position/y`
+    )
+  data3 <- data3%>% 
+  rename(
+  x = `/dwm1001/id_458E/pose_kf/pose/position/x`,
+  y= `/dwm1001/id_458E/pose_kf/pose/position/y`
+    )
+  
+library(ggplot2)
+library(gganimate)
+
+# Plotting all the 3 instances for one position
+p <- ggplot()+
+  geom_path(data = data1, aes(x =1:length(y), y=y, color = "blue"))+
+  geom_path(data = data2, aes(x=1:length(y), y=y, color = "black"))+
+  geom_path(data = data3, aes(x=1:length(y), y=y, color = "red"))+
+  xlab("Number of Samples") + ylab("Distance in y (meters)")+
+  scale_color_identity(name = "Legend",
+                          breaks = c("blue", "black", "red"),
+                          labels = c("Sample1", "Sample2", "Sample3"),
+                          guide = "legend")
+
+# Computing the RMS
+errorx <-data.frame(ex1 =sqrt(mean((gx - data1$x)^2)),  ex2 = sqrt(mean((gx - data2$x)^2)), ex3= sqrt(mean((gx - data3$x)^2)))
+
+errory <- data.frame(ey1 =sqrt(mean((gy- data1$y)^2)),  ey2 = sqrt(mean((gy - data2$y)^2)), ey3= sqrt(mean((gy - data3$y)^2)))
+
+a=c(errorx$ex1,errorx$ex2,errorx$ex3)
+b= c(errory$ey1,errorx$ey2,errorx$ey3)
+
+# Plotting the RMS
+n<-ggplot()+
+  geom_point(data = errorx,aes(x="Area1",y = ex1, color ="blue"), shape = 2)+
+  geom_point(data = errorx,aes(x="Area2", y = ex2, color ="red"), shape = 2)+
+  geom_point(data = errorx,aes(x="Area3", y = ex3, color = "black"), shape= 2)
+
+m<-ggplot()+
+  geom_point(data = errory,aes(x="Area1",y = ey1, color ="blue"), shape = 2)+
+  geom_point(data = errory,aes(x="Area2", y = ey2, color ="red"), shape = 2)+
+  geom_point(data = errory,aes(x="Area3", y = ey3, color = "black"), shape= 2)
+
+l<-ggplot()+
+  geom_point(aes(x="Area1", y = gx, color ="red"),shape = 2)+
+  geom_point(aes(x="Area2", y = gx, color ="red"), shape = 2)+
+  geom_point(aes(x="Area3", y = gx, color ="red"), shape = 2)+
+   xlab("RMS Erorr x in (meters)") + ylab("RMS Erorr y in (meters)")+
+  scale_color_identity(name = "Legend",
+                          breaks = c("red", "red", "black"),
+                          labels = c("xRMS", "yRMS", "xyRMS"),
+                          guide = "legend")+ scale_shape_manual(values = c(2, 3))
+f <-mean(data1$x)
+f1<-mean(data2$x)
+f2<-mean(data3$x)
+
+s1<-mean(data1$y)
+s2<-mean(data2$y)
+s3<-mean(data3$y)
+
+x <- mean(f,f1,f2) 
+y <- mean(s1,s2,s3) 
+v<<-errorx
+i<<-errory
+print(x);print(y);print(errory)
+}
+```
+
+
+```{r include=FALSE}
+all(df1, df2, df3, 7.54, 2.48)
+
+h1 <-c(7.848414, 2.42745)
+```
+
+```{r include=FALSE}
+all(df10,df11,df12,7.54,5)
+h2 <-c(7.838189, 5.133005)
+```
+
+```{r include=FALSE}
+all(df19,df20,df21,7.54, 6.62)
+h3<-c (7.855341, 6.483155)
+```
+
+```{r eval=FALSE, include=FALSE}
+new1x<-data.frame(t1x)
+new1x[nrow(new1x) + 1,] = t2x
+new1x[nrow(new1x) + 1,] = t3x
+```
+
+```{r eval=FALSE, include=FALSE}
+new2x<-data.frame(t1x)
+new2x[nrow(new2x) + 1,] = t2x
+new2x[nrow(new2x) + 1,] = t3x
+```
+
+```{r eval=FALSE, include=FALSE}
+new3x<-data.frame(t1x)
+new3x[nrow(new3x) + 1,] = t2x
+new3x[nrow(new3x) + 1,] = t3x
+```
+
+```{r eval=FALSE, include=FALSE}
+new1y<-data.frame(t1y)
+new1y[nrow(new1y) + 1,] = t2y
+new1y[nrow(new1y) + 1,] = t3y
+```
+
+```{r eval=FALSE, include=FALSE}
+new2y<-data.frame(t1y)
+new2y[nrow(new2y) + 1,] = t2y
+new2y[nrow(new2y) + 1,] = t3y
+```
+
+```{r eval=FALSE, include=FALSE}
+new3y<-data.frame(t1y)
+new3y[nrow(new3y) + 1,] = t2y
+new3y[nrow(new3y) + 1,] = t3y
+```
+
+
+```{r eval=FALSE, include=FALSE}
+data1<- data.frame(t1x,t2x,t3x)
+```
+
+
+
+```{r include=FALSE}
+
+n1<-data.frame(a=c(0.3089210, 0.3093095 ,0.3105063))
+n2<-data.frame(a=c(0.2982361, 0.2958026, 0.2975909))
+n3<-data.frame(a=c(0.3193938, 0.2972614, 0.2968819))
+n4<-data.frame(a=c(0.2052578, 0.2161683, 0.2132667))
+n5<-data.frame(a=c(0.1662072, 0.1639887, 0.1896555))
+n6<-data.frame(a=c(0.2416975, 0.2557810, 0.2447396))
+n7<-data.frame(a=c(0.4864733, 0.4407957, 0.4993782))
+n8<-data.frame(a=c(0.2888210, 0.4284507, 0.4452529))
+n9<-data.frame(a=c(0.6475633, 0.6461611, 0.6489865))
+data1 <- data.frame(n1,n2,n3,n4,n5,n6,n7,n8,n9)
+```
+
+```{r include=FALSE}
+s1<-data.frame(a=c(0.05673186 ,0.0598231 ,0.05120021))
+s2<-data.frame(a=c(0.13309819 ,0.1323457 ,0.13169804))
+s3<-data.frame(a=c(0.13736683 ,0.1490379 ,0.14363023))
+s4<-data.frame(a=c(0.08259533 ,0.10052266, 0.09301571))
+s5<-data.frame(a=c(0.03273811 ,0.03022952, 0.02795567))
+s6<-data.frame(a=c(0.06019882 ,0.06238327, 0.05665675))
+s7<-data.frame(a=c(0.09900309 ,0.1400124 ,0.08728403))
+s8<-data.frame(a=c(0.19477596 ,0.1897136 ,0.18268448))
+s9<-data.frame(a=c(0.17286755 ,0.1749758 ,0.17866782))
+data2 <- data.frame(s1,s2,s3,s4,s5,s6,s7,s8,s9)
+```
+
+
+```{r include=FALSE}
+Point1 <- "red"
+Point2 <-"black"
+Point3 <- "blue"
+library(ggplot2)
+x <-ggplot()+
+  geom_point(data= data1, aes(x="Area1", y=a,   color=Point1), shape=3)+
+  geom_point(data= data1, aes(x="Area2", y=a.1, color=Point1), shape=3)+
+  geom_point(data= data1, aes(x="Area3", y=a.2, color=Point1), shape=3)+
+  geom_point(data= data1, aes(x="Area1", y=a.3, color=Point2), shape=3)+
+  geom_point(data= data1, aes(x="Area2", y=a.4, color=Point2), shape=3)+
+  geom_point(data= data1, aes(x="Area3", y=a.5, color=Point2), shape=3)+
+  geom_point(data= data1, aes(x="Area1", y=a.6, color=Point3), shape=3)+
+  geom_point(data= data1, aes(x="Area2", y=a.7, color=Point3), shape=3)+
+  geom_point(data= data1, aes(x="Area3", y=a.8, color=Point3), shape=3)+
+  xlab("Number of Areas")+ylab("Root Mean Square Error in X (meters)")+
+  scale_color_identity(name = "Legend",
+                          breaks = c("red", "black", "blue"),
+                          labels = c("Point1RMSE", "Point2RMSE", "Point3RMSE"),
+                          guide = "legend")+
+  theme_bw()+ theme(text = element_text(size = 10), axis.title.x = element_text(color="blue",   size=10,  face="bold"),axis.title.y = element_text(color="#993333", size=10, face="bold"))
+
+y <- ggplot()+
+  geom_point(data= data2, aes(x="Area1", y=a,  color= Point1), shape=3)+
+  geom_point(data= data2, aes(x="Area2", y=a.1, color=Point1), shape=3)+
+  geom_point(data= data2, aes(x="Area3", y=a.2, color=Point1), shape=3)+
+  geom_point(data= data2, aes(x="Area1", y=a.3, color=Point2), shape=3)+
+  geom_point(data= data2, aes(x="Area2", y=a.4, color=Point2), shape=3)+
+  geom_point(data= data2, aes(x="Area3", y=a.5, color=Point2), shape=3)+
+  geom_point(data= data2, aes(x="Area1", y=a.6, color=Point3), shape=3)+
+  geom_point(data= data2, aes(x="Area2", y=a.7, color=Point3), shape=3)+
+  geom_point(data= data2, aes(x="Area3", y=a.8, color=Point3), shape=3)+
+  xlab("Number of Areas")+ylab("Root Mean Square Error in Y (meters)")+
+   scale_color_identity(name = "Legend",
+                          breaks = c("red", "black", "blue"),
+                          labels = c("Point1RMSE", "Point2RMSE", "Point3RMSE"),
+                          guide = "legend")+
+  theme_bw()+ theme(text = element_text(size = 10), axis.title.x = element_text(color="blue", size=10,  face="bold"), axis.title.y = element_text(color="#993333", size=10, face="bold"))
+```
+
+# Work done during the week
+
+* Investigation and understanding of coordinates systems and how we could perform the conversion of our xyz coordinates recorded by UWB to a universal coordinates system. A script was made and a standard format for the conversion file was designed in order to make sure that all the data coming from UWB would be aligned with Cohda Wireless's data. To enable rapid data collection and analysis. Still missing the Cohda wireless log file which would assist on the understanding of how they project their data and which coordinate system they use.
+
+* Proceeding with an accuracy vs area experiment in the garage, which involved the collection of 27 instances of data at 3 points scaled to each designated area in the garage. This study would assist setting an anchor placement guideline throughout the garage.
+
+* Analysis and plotting of this data was done and show below to show clearly how the error in localization scales with the increase of the area size.
+
+* Completion of the DWM1001 report (polishing and reviewing).
+
+* Performing PDOP analysis to validate the accuracy of the system based on the placement of the anchors.
+
+## Goal of current week
+
+* Performing further experiments in absolute line of sight to validate the accuracy and different anchor placement configuration and whether thee would be any difference between placing the anchors on the pillar or on a static tripod away from the cars and any obstetrical. Of course with the placement of anchor on the pillar and also near the cars we don't completely avoid the *Fresnel Zone*. So to achieve maximum accuracy and placement of the anchors in absolute line of sight would be the optimal solution.
+
+* Analysis of the data that would be collected and comparing between the two scenarios.
+
+
+### Experimental Setup
+
+* The goal of this experiment was to compare and analyze how the change of area size would influence the change of accuracy.
+
+* Precise measurement were done using laser tool (not sure about its internal measurement error). The experiment was split into 3 scenarios, each on was performed with reference to 3 points and then scaled as the area increased. Three measurement were taken at each point for each area, each measurement instance was performed for 1 minute, with a total of 27 measurements for almost half an hour of data.
+
+* The gateway/ listener tag was always near the tag to avoid any losses or missed instances and that has been seen in the log files as there was no data lost during all 27 instances.
+
+* Only 4 anchors were used in this experiment with one tag, 2 anchors were at fixed position from start till the end, while 2 were moved according to the scaling of area.
+
+* All data was captured and converted using the ROS interface we developed and its ready to be alligned with the Cohda Wireless data; once its available.
+
+### Anchors Setup
+
+* The figure below depicts the garage layout and the anchor placement of the anchor and the whole experiment setup.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+include_graphics('/home/anas/Pictures/New2.png')
+```
+
+* This figure shows the smallest Area and the 3 ground truth points, that the data were sampled at for 3 minutes each. 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+include_graphics('/home/anas/Pictures/New3.png')
+```
+
+* This figure shows Area2 and the 3 ground truth points, that the data were sampled at for 3 minutes each. 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+include_graphics('/home/anas/Pictures/New4.png')
+```
+* This figure shows the largest Area and the 3 ground truth points, that the data were sampled at for 3 minutes each. 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+include_graphics('/home/anas/Pictures/New5.png')
+```
+
+
+
+### Experimental Results
+
+* In this plot all the Root Mean Square Error for all 27 instances labeled for each area is shown. The RMS error in x is evidently higher then that of the y at all instance; this could be from the effect of *Fresnel Zone* or the error in measurement of the ground truth tool. However, its only significant in case of the third area in comparison to the state of the art. Overall, Area 2 had the best performance accuracy out of the 3.
+
+```{r echo=FALSE}
+library(patchwork)
+
+wrap_plots(x,y)+ plot_annotation( title = '       Exp1 Root Mean Square Error of All Data vs Number of Areas in X and Y')
+```
+
+
+```{r}
+x$labels$title
+ggplotly(x)
+```
+
+```{r}
+ggplotly(y)
+```
+
+
+```{r include=FALSE}
+all(df7,df8,df9, 6.63, 12.19)
+p3<-c(0.475549, 0.09900309, sqrt((0.475549)^2+(0.09900309)^2))
+```
+
+```{r include=FALSE}
+all(df10,df11,df12, 7.54,5)
+p4 <- c(0.2972098, 0.1330982, sqrt((0.2972098)^2+(0.1330982)^2))
+```
+
+```{r include=FALSE}
+all(df13,df14,df15, 4.26, 15.02)
+p5 <- c(0.1732838, 0.173736, sqrt((0.1732838)^2+(0.173736)^2))
+```
+
+
+```{r include=FALSE}
+all(df16,df17,df18, 6.63, 24.61)
+p6 <- c(0.3875082, 0.194776, sqrt((0.3875082)^2+(0.194776)^2))
+```
+
+```{r include=FALSE}
+all(df19,df20,df21,7.54,6.62)
+p7 <- c(0.3045124, 0.1373668, sqrt((0.3045124)^2+(0.1373668)^2))
+```
+
+```{r include=FALSE}
+all(df22,df23,df24, 4.26,19.9)
+p8 <- c(0.247406, 0.06019882, sqrt((0.247406)^2+(0.06019882)^2))
+```
+
+```{r include=FALSE}
+all(df25,df26,df27, 6.63,32.61)
+p9<- c(0.6475703, 0.1728675, sqrt((0.6475703)^2+(0.1728675)^2))
+```
+
+
+```{r include=FALSE}
+library(ggthemes)
+p1 <-c(0.30957890 ,0.05673186, sqrt((0.30957890)^2+(0.05673186)^2))
+p2<-c(0.2115643 ,0.0825953, sqrt((0.2115643)^2+(0.0825953)^2))
+b <-data.frame(a=c("Point1","Point2","Point3"))
+f <- data.frame(n = c("xRMSE","yRMSE", "dRMSE") ,"Point1"=p1,"Point2"=p2,"Point3"=p3,"Point1"=p4,"Point2"=p5,"Point3"=p6,
+                "Point1"=p7,"Point2"=p8,"Point3"=p9)
+wx <- ggplot(data=f)+
+  geom_point(aes(x="1", y=p1[1],color="Position1RMSE"),shape=4)+
+  geom_point(aes(x="1", y=p4[1],color="Position1RMSE"),shape=4)+
+  geom_point(aes(x="1", y=p7[1],color="Position1RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p2[1],color="Position2RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p5[1],color="Position2RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p8[1],color="Position2RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p3[1],color="Position3RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p6[1],color="Position3RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p9[1],color="Position3RMSE"),shape=4)+
+  theme_bw()+
+  scale_color_manual(
+    labels = c("Position1RMSE","Position2RMSE", "Position3RMSE"),
+    values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
+  theme(text = element_text(size = 10), 
+        axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+        axis.title.y = element_text(color="#993333", size=10, face="bold"))+
+  labs(y = "Total Root Mean Square Error in X (meters)",
+       x = "Tag Position")
+
+wy <- ggplot(data=f)+
+  geom_point(aes(x="1", y=p1[2],color="Position1RMSE"),shape=4)+
+  geom_point(aes(x="1", y=p4[2],color="Position1RMSE"),shape=4)+
+  geom_point(aes(x="1", y=p7[2],color="Position1RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p2[2],color="Position2RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p5[2],color="Position2RMSE"),shape=4)+
+  geom_point(aes(x="2", y=p8[2],color="Position2RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p3[2],color="Position3RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p6[2],color="Position3RMSE"),shape=4)+
+  geom_point(aes(x="3", y=p9[2],color="Position3RMSE"),shape=4)+
+  theme_bw()+
+  labs(y = "Total Root Mean Square Error in Y (meters)",
+       x = "Tag Position")+
+  scale_color_manual(
+    labels = c("Position1RMSE","Position2RMSE", "Position3RMSE"),
+    values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
+  theme(text = element_text(size = 10), 
+        axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+        axis.title.y = element_text(color="#993333", size=10, face="bold"))
+```
+
+* In this plot we can observe the overall RMS error in comparison to the Tag's position both in x and y. The pattern here is still the same as Area 2/ position 2 of the tag has the lowest over all localization error.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(cowplot)
+wy$labels$colour<-"Legend"
+wx$labels$colour<-"Legend"
+wrap_plots(wx,wy)+ plot_annotation( title = '       Exp1 Root Mean Square Error of All Data vs Tag Position in X and Y')
+```
+
+```{r}
+ggplotly(wx)
+```
+
+```{r}
+ggplotly(wy)
+```
+
+
+
+
+
+
+
+
+* Moreover, in this interactive plot a comparison between the data recorded by dWM1001 And the laser tool, to show how far the estimation of UWB is from the from the ground truth.
+
+```{r echo=FALSE}
+sha<-data.frame(h1=c(7.54,2.48),h2=c(7.54,5),h3=c(7.54,6.62))
+sha1<-data.frame(h1=c(4.26,7.44),h2=c(4.26,15.02),h3=c(4.26,19.9))
+sha2<-data.frame(h1=c(6.63,12.19),h2=c(6.63,24.61),h3=c(6.63,32.61))
+```
+
+```{r include=FALSE}
+she<-data.frame(h1=c(7.848414,2.427450),h2=c(7.838189,5.133005),h3=c(7.855341,6.483155))
+she1<-data.frame(h1=c(4.459064,7.383452),h2=c(4.404527,15.190870),h3=c(4.497528,19.841840))
+she2<-data.frame(h1=c(7.113699,12.270310),h2=c(6.916778,24.803490),h3=c(7.277247,32.437990))
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+Area1 <- "red"
+Area2 <- "blue"
+Area3 <- "black"
+gg <-data.frame(a=c("UWB Reading", "Laser Tool Reading"))
+Legend<-gg$a[1]
+newh <-data.frame("pos1"=she$h1[1:2],"pos2"= she1$h1[1:2],"pos3"=she2$h1[1:2])
+library(ggthemes)
+library(ggrepel)
+library(ggpp)
+
+k <-ggplot()+
+  geom_point(data = she, aes(x=h1[1],y=h1[2], color= "Area1"),shape=1)+
+  geom_point(data = she, aes(x=h2[1],y=h2[2], color= "Area2"),shape=1)+
+  geom_point(data = she, aes(x=h3[1],y=h3[2], color= "Area3"),shape=1)+
+  geom_point(data = she1, aes(x=h1[1],y=h1[2], color="Area1"),shape=1)+
+  geom_point(data = she1, aes(x=h2[1],y=h2[2], color="Area2"),shape=1)+
+  geom_point(data = she1, aes(x=h3[1],y=h3[2], color="Area3"),shape=1)+
+  geom_point(data = she2, aes(x=h1[1],y=h1[2], color="Area1"),shape=1)+
+  geom_point(data = she2, aes(x=h2[1],y=h2[2], color="Area2"),shape=1)+
+  geom_point(data = she2, aes(x=h3[1],y=h3[2], color="Area3"),shape=1)+
+  geom_point(data = sha, aes(x=h1[1],y=h1[2] , color="Area1"),shape=3)+
+  geom_point(data = sha, aes(x=h2[1],y=h2[2] , color="Area2"),shape=3)+
+  geom_point(data = sha, aes(x=h3[1],y=h3[2] , color="Area3"),shape=3)+
+  geom_point(data = sha1, aes(x=h1[1],y=h1[2], color="Area1"),shape=3)+
+  geom_point(data = sha1, aes(x=h2[1],y=h2[2], color="Area2"),shape=3)+
+  geom_point(data = sha1, aes(x=h3[1],y=h3[2], color="Area3"),shape=3)+
+  geom_point(data = sha2, aes(x=h1[1],y=h1[2], color="Area1"),shape=3)+
+  geom_point(data = sha2, aes(x=h2[1],y=h2[2], color="Area2"),shape=3)+
+  geom_point(data = sha2, aes(x=h3[1],y=h3[2], color="Area3"),shape=3)+
+  theme_bw()+
+  scale_color_manual(
+    values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
+  labs(
+    tag = "Figure 1",
+    x = "Distance in x (meters)",
+    y = "Distance in y (meters)")+
+    theme(text = element_text(size = 10), 
+          axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+          axis.title.y = element_text(color="#993333", size=10, face="bold"))
+```
+
+```{r echo=FALSE, warning=FALSE}
+library(plotly)
+ggplotly(k)%>% config(displayModeBar = F)
+```
+
+
+
+```{r include=FALSE}
+f <- data.frame(n = c("xRMS","yRMS", "dRMS") ,"point1"=p1,"point2"=p2,"point3"=p3,"point1"=p4,"point2"=p5,"point3"=p6,"point1"=p7,"point2"=p8,"point3"=p9)
+
+gg2<-data.frame(a=c("point1","point2","point3"))
+legend <- gg2$a[1]
+
+bp <-ggplot(data = f)+
+  geom_point(aes(x = p1[1], y=p1[2]), color = "red")+
+  geom_point(aes(x = p2[1], y=p2[2]), color = "black")+
+  geom_point(aes(x = p3[1], y=p3[2]), color = "blue")+
+  labs(
+       y = "RMSE in Y (meters)",
+       x = "RMSE in X (meters)",
+       colour = "")+
+  scale_color_identity(name = "Legend",
+                          breaks = c("red", "black", "blue"),
+                          labels = c("Point1RMS", "Point2RMS", "Point3RMS"),
+                          guide = "legend")+ theme_bw()+
+  theme(text = element_text(size = 10), axis.title.x = element_text(color="blue", size=10,  face="bold"),      axis.title.y = element_text(color="#993333", size=10, face="bold"))
+
+bp2<-ggplot(data = f)+
+  geom_point(aes(x = p4[1], y=p4[2]), color = "red")+
+  geom_point(aes(x = p5[1], y=p5[2]), color = "black")+
+  geom_point(aes(x = p6[1], y=p6[2]), color = "blue")+
+  labs(
+       y = "RMSE in Y (meters)",
+       x = "RMSE in X (meters)",
+       colour = "")+
+  scale_color_identity(name = "Legend",
+                          breaks = c("red", "black", "blue"),
+                          labels = c("Point1RMS", "Point2RMS", "Point3RMS"),
+                          guide = "legend")+ theme_bw()+
+  theme(text = element_text(size = 10), axis.title.x = element_text(color="blue", size=10,  face="bold"),      axis.title.y = element_text(color="#993333", size=10, face="bold"))
+
+bp3<-ggplot(data = f)+
+  geom_point(aes(x = p7[1], y=p7[2], color = "red" ))+
+  geom_point(aes(x = p8[1], y=p8[2], color = "black"))+
+  geom_point(aes(x = p9[1], y=p9[2], color = "blue"))+
+  theme_bw()+
+  labs(
+       y = "RMSE in Y (meters)",
+       x = "RMSE in X (meters)",
+       colour = "")+scale_color_identity(name = "Legend",
+                          breaks = c("red", "black", "blue"),
+                          labels = c("Point1RMS", "Point2RMS", "Point3RMS"),
+                          guide = "legend")+ theme_bw()+
+  theme(text = element_text(size = 10), axis.title.x = element_text(color="blue", size=10,  face="bold"),      axis.title.y = element_text(color="#993333", size=10, face="bold"))
+```
+
+* A side by side comparison of the overall xy RMS is illustrated in this plot.
+```{r echo=FALSE}
+library(grid)
+library(patchwork)
+
+wrap_plots(bp,bp2,bp3)+  plot_annotation(title = '               Exp1 Comparison between the Total XY RMS Error for the 3 Areas')+ plot_annotation(tag_levels = c('1','1'))
+  
+```
+
+```{r include=FALSE}
+PDOP3<- c(6.7653241895118885, 7.262258355149471, 5.964724209328886)
+PDOP1<- c(13.96228215631514, 64.39720576039119, 7.142445985010004)
+PDOP2<- c(2.3924502184918683, 3.6777114481822935, 4.137025141121068)
+p11<-data.frame(PDOP1,PDOP2,PDOP3,color= c("point1","point2","point3"))
+```
+
+
+
+
+* The Overall RMS Error can also be observed in this table.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+colnames(f)<-c("n","point1/Area1","point2/Area1","point3/Area1", "point1/Area2","point2/Area2","point3/Area2","point1/Area3","point2/Area2","point3/Area3")
+f%>%
+kbl(caption = "Exp 1 Total Root Mean Square Error in (meters)") %>%
+  kable_styling(bootstrap_options = "striped", font_size = 11)
+
+```
+
+
+```{r include=FALSE}
+p11$color<-c("Position1","Position2","Position3")
+Points<-p11$color[1]
+n11 <-ggplot()+
+  geom_point(data = p11, aes(x="Area1", y=PDOP1[1],color=Points)  ,shape=3 )+
+  geom_point(data = p11, aes(x="Area1", y=PDOP1[2],color=color[2]),shape=3)+
+  geom_point(data = p11, aes(x="Area1", y=PDOP1[3],color=color[3]),shape=3)+
+  geom_point(data = p11, aes(x="Area2", y=PDOP2[1],color=color[1]),shape=3)+
+  geom_point(data = p11, aes(x="Area2", y=PDOP2[2],color=color[2]),shape=3)+
+  geom_point(data = p11, aes(x="Area2", y=PDOP2[3],color=color[3]),shape=3)+
+  geom_point(data = p11, aes(x="Area3", y=PDOP3[1],color=color[1]),shape=3)+
+  geom_point(data = p11, aes(x="Area3", y=PDOP3[2],color=color[2]),shape=3)+
+  geom_point(data = p11, aes(x="Area3", y=PDOP3[3],color=color[3]),shape=3)+
+  theme_bw()+ 
+  xlab("Number of Areas")+
+  ylab("Positon Dilution of Precision")+
+  scale_color_manual(
+    values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
+  theme(text = element_text(size = 10), axis.title.x = element_text(color="blue", size=10,  face="bold"),     axis.title.y = element_text(color="#993333", size=10, face="bold"))
+  
+```
+### Conclusion 
+* Finally a conclusion can be drawn for this experiment based on the computation of GDOP, specifically PDOP, since we don't have a timing aspect to compute for UWB. PDOP helps estimate the quality of coverage based on the position of the anchors (the lower the values the better in terms of coverage accuracy). Based on the RMS error results computed for each point and the results obtained for PDOP we can conclude that the configuration of Area 2 is the best out of 3 studied areas.
+Overall, we can observe that the lowest RMSE lies at Area 2 which is also verified by the PDOP values, however further improvement would are possible with further change of the anchor placement configuration in the absolute line of sight, while also trying to mitigate the effect of the Fresnel Zone.
+
+```{r echo=FALSE}
+ggplotly(n11, tooltip = "non") %>% config(displayModeBar = F)
+```
+
+```{r eval=FALSE, include=FALSE}
+par(mfrow=c(3,1))
+hist(df1$`/dwm1001/id_458E/pose_kf/pose/position/x`)
+abline(v=mean(df1$`/dwm1001/id_458E/pose_kf/pose/position/x`), col= "red")
+hist(df2$`/dwm1001/id_458E/pose_kf/pose/position/x`)
+abline(v=mean(df2$`/dwm1001/id_458E/pose_kf/pose/position/x`), col= "red")
+hist(df3$`/dwm1001/id_458E/pose_kf/pose/position/x`, xlab = "Distance in meters", main = "Distance in x")
+abline(v=mean(df3$`/dwm1001/id_458E/pose_kf/pose/position/x`), col= "red")
+```
+
+
+
