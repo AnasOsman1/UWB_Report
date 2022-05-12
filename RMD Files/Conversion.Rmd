@@ -90,35 +90,42 @@ L A T_{UWB}=L A T_{R E F}+\Delta L A T
 
 
 ```{r}
-Conversion <- function(UWB_data, Cohda_data, beta,
+Conversion <- function(x, y, beta,
     alpha, theta, Lat_Ref, Lon_Ref) {
     # Creating data frame and filtering the input
     # data
-    new <- UWB_Data %>%
-        select(Time_UWB = "X.dwm1001.id_458E.pose_kf.header.stamp",
-            x = "X.dwm1001.id_458E.pose_kf.pose.position.x",
-            y = "X.dwm1001.id_458E.pose_kf.pose.position.y")
-    Cohda <- Cohda_Data %>%
-        select(lat, lon, Time_Cohda = time_us)
+    #new <- UWB_Data %>%
+        #select(Time_UWB = "X.dwm1001.id_458E.pose_kf.header.stamp",
+            #x = "X.dwm1001.id_458E.pose_kf.pose.position.x",
+            #y = "X.dwm1001.id_458E.pose_kf.pose.position.y")
+    #Cohda <- Cohda_Data %>%
+        #select(lat, lon, Time_Cohda = time_us)
     # Computing the projection parameters
-    R <- 6378.137  # radius of earth in Km
-    x_1 <- (new$x + alpha)
-    y_1 <- (new$y + beta)
+    R <- 6378.137*10^3  # radius of earth in Km
+    x_1 <- (x + alpha)
+    y_1 <- (y + beta)
     x_2 <- (x_1 * cos(theta) + y_1 * sin(theta))
     y_2 <- (-1 * (x_1) * sin(theta) + y_1 * cos(theta))
-    Lat_UWB <- acos(x_2/R) %>%
-        Lat_Ref + Lat_UWB
-    Lon_UWB <- atan2(y_2, phi) %>%
-        Lon_UWB + Lon_dif
+    Lat_UWB <- acos(x_2/R)
+    lat <- Lat_Ref + Lat_UWB
+    Lon_UWB <- atan2(y_2, x_2)
+    lon <- Lon_UWB + Lon_Ref
     # Alignment of both the systems
-    f <- data.frame("Time_UWB" = new$Time_UWB, Lat_UWB, Lon_UWB,
-        "Time_Cohda" = Cohda$Time_Cohda, Cohda$lat, Cohda$long)
-    l <- kbl(caption = "Conversion", head(f, 20), booktabs = TRUE) %>%
-        kable_styling(bootstrap_options = "striped",
-            font_size = 11)
-    return(l)
+   # f <- data.frame("Time_UWB" = new$Time_UWB, Lat_UWB, Lon_UWB,
+        #"Time_Cohda" = Cohda$Time_Cohda, Cohda$lat, Cohda$long)
+    #l <- kbl(caption = "Conversion", head(f, 20), booktabs = TRUE) %>%
+        #kable_styling(bootstrap_options = "striped",
+            #font_size = 11)
+    return(list(x_1,y_1, x_2, y_2, Lat_UWB, Lon_UWB, lat, lon))
 }
 ```
+
+```{r}
+Conversion(40,10,0,0,0, 46.06677, 11.16241 )
+```
+
+
+
 
 ## Reverse Equirectangular Projection *(Suggestion)*
 
@@ -181,5 +188,27 @@ measure <- function(lon1, lat1, lon2, lat2) {
 }
 ```
 
+```{r}
+measure(46.07269670317493, 11.149335845501437, 46.07301591229872, 11.152367262680151)
+```
 
+
+```{r}
+custom_hav_dist <- function(lat1, lon1, lat2, lon2) {
+R <- 6371
+Radian_factor <- 0.0174533
+lat_1 <- (90-lat1)*Radian_factor
+lat_2 <- (90-lat2)*Radian_factor
+diff_long <-(lon1-lon2)*Radian_factor
+
+distance_in_km <- 6371*acos((cos(lat_1)*cos(lat_2))+ 
+                 (sin(lat_1)*sin(lat_2)*cos(diff_long)))
+rm(lat1, lon1, lat2, lon2)
+return(distance_in_km*10^3)
+}
+```
+
+```{r}
+custom_hav_dist(46.05590689166976, 11.133622197707451, 46.05806108185504, 11.132731839540899)
+```
 
