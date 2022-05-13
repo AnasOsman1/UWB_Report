@@ -219,7 +219,6 @@ data1<- data.frame(t1x,t2x,t3x)
 ```
 
 
-
 ```{r include=FALSE}
 
 n1<-data.frame(a=c(0.3089210, 0.3093095 ,0.3105063))
@@ -245,47 +244,6 @@ s7<-data.frame(a=c(0.09900309 ,0.1400124 ,0.08728403))
 s8<-data.frame(a=c(0.19477596 ,0.1897136 ,0.18268448))
 s9<-data.frame(a=c(0.17286755 ,0.1749758 ,0.17866782))
 data2 <- data.frame(s1,s2,s3,s4,s5,s6,s7,s8,s9)
-```
-
-
-```{r include=FALSE}
-Point1 <- "red"
-Point2 <-"black"
-Point3 <- "blue"
-library(ggplot2)
-x <-ggplot()+
-  geom_point(data= data1, aes(x="Area1", y=a,   color=Point1), shape=3)+
-  geom_point(data= data1, aes(x="Area2", y=a.1, color=Point1), shape=3)+
-  geom_point(data= data1, aes(x="Area3", y=a.2, color=Point1), shape=3)+
-  geom_point(data= data1, aes(x="Area1", y=a.3, color=Point2), shape=3)+
-  geom_point(data= data1, aes(x="Area2", y=a.4, color=Point2), shape=3)+
-  geom_point(data= data1, aes(x="Area3", y=a.5, color=Point2), shape=3)+
-  geom_point(data= data1, aes(x="Area1", y=a.6, color=Point3), shape=3)+
-  geom_point(data= data1, aes(x="Area2", y=a.7, color=Point3), shape=3)+
-  geom_point(data= data1, aes(x="Area3", y=a.8, color=Point3), shape=3)+
-  xlab("Number of Areas")+ylab("Root Mean Square Error in X (meters)")+
-  scale_color_identity(name = "Legend",
-                          breaks = c("red", "black", "blue"),
-                          labels = c("Point1RMSE", "Point2RMSE", "Point3RMSE"),
-                          guide = "legend")+
-  theme_bw()+ theme(text = element_text(size = 10), axis.title.x = element_text(color="blue",   size=10,  face="bold"),axis.title.y = element_text(color="#993333", size=10, face="bold"))
-
-y <- ggplot()+
-  geom_point(data= data2, aes(x="Area1", y=a,  color= Point1), shape=3)+
-  geom_point(data= data2, aes(x="Area2", y=a.1, color=Point1), shape=3)+
-  geom_point(data= data2, aes(x="Area3", y=a.2, color=Point1), shape=3)+
-  geom_point(data= data2, aes(x="Area1", y=a.3, color=Point2), shape=3)+
-  geom_point(data= data2, aes(x="Area2", y=a.4, color=Point2), shape=3)+
-  geom_point(data= data2, aes(x="Area3", y=a.5, color=Point2), shape=3)+
-  geom_point(data= data2, aes(x="Area1", y=a.6, color=Point3), shape=3)+
-  geom_point(data= data2, aes(x="Area2", y=a.7, color=Point3), shape=3)+
-  geom_point(data= data2, aes(x="Area3", y=a.8, color=Point3), shape=3)+
-  xlab("Number of Areas")+ylab("Root Mean Square Error in Y (meters)")+
-   scale_color_identity(name = "Legend",
-                          breaks = c("red", "black", "blue"),
-                          labels = c("Point1RMSE", "Point2RMSE", "Point3RMSE"),
-                          guide = "legend")+
-  theme_bw()+ theme(text = element_text(size = 10), axis.title.x = element_text(color="blue", size=10,  face="bold"), axis.title.y = element_text(color="#993333", size=10, face="bold"))
 ```
 
 # Work done during the week
@@ -343,27 +301,86 @@ library(knitr)
 ```
 
 
-
 ### Experimental Results
 
 * In this plot all the Root Mean Square Error for all 27 instances labeled for each area is shown. The RMS error in x is evidently higher then that of the y at all instance; this could be from the effect of *Fresnel Zone* or the error in measurement of the ground truth tool. However, its only significant in case of the third area in comparison to the state of the art. Overall, Area 2 had the best performance accuracy out of the 3.
 
+```{r include=FALSE}
+library(ggplot2)
+
+x <-ggplot()+
+  geom_point(data= data1, aes(x="Area1", y=a,   color="Point1RMSE"), shape=3)+
+  geom_point(data= data1, aes(x="Area2", y=a.1, color="Point1RMSE"), shape=3)+
+  geom_point(data= data1, aes(x="Area3", y=a.2, color="Point1RMSE"), shape=3)+
+  geom_point(data= data1, aes(x="Area1", y=a.3, color="Point2RMSE"), shape=3)+
+  geom_point(data= data1, aes(x="Area2", y=a.4, color="Point2RMSE"), shape=3)+
+  geom_point(data= data1, aes(x="Area3", y=a.5, color="Point2RMSE"), shape=3)+
+  geom_point(data= data1, aes(x="Area1", y=a.6, color="Point3RMSE"), shape=3)+
+  geom_point(data= data1, aes(x="Area2", y=a.7, color="Point3RMSE"), shape=3)+
+  geom_point(data= data1, aes(x="Area3", y=a.8, color="Point3RMSE"), shape=3)+
+  xlab("Number of Areas")+ylab("Root Mean Square Error in X (meters)")+
+  scale_color_manual(
+    values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
+  theme_bw()+ theme(text = element_text(size = 10), 
+                    axis.title.x = element_text(color="blue", size=10, face="bold"),
+                    axis.title.y = element_text(color="#993333", size=10, face="bold"))
+
+y <- ggplot()+
+  geom_point(data= data2, aes(x="Area1", y=a,  color= "Point1RMSE"), shape=3)+
+  geom_point(data= data2, aes(x="Area2", y=a.1, color="Point1RMSE"), shape=3)+
+  geom_point(data= data2, aes(x="Area3", y=a.2, color="Point1RMSE"), shape=3)+
+  geom_point(data= data2, aes(x="Area1", y=a.3, color="Point2RMSE"), shape=3)+
+  geom_point(data= data2, aes(x="Area2", y=a.4, color="Point2RMSE"), shape=3)+
+  geom_point(data= data2, aes(x="Area3", y=a.5, color="Point2RMSE"), shape=3)+
+  geom_point(data= data2, aes(x="Area1", y=a.6, color="Point3RMSE"), shape=3)+
+  geom_point(data= data2, aes(x="Area2", y=a.7, color="Point3RMSE"), shape=3)+
+  geom_point(data= data2, aes(x="Area3", y=a.8, color="Point3RMSE"), shape=3)+
+  xlab("Number of Areas")+ylab("Root Mean Square Error in Y (meters)")+
+  scale_color_manual(
+    values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
+  theme_bw()+ theme(text = element_text(size = 10), 
+                    axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+                    axis.title.y = element_text(color="#993333", size=10, face="bold"))
+xy11 <- ggplot()+
+  geom_point(aes(x=data1$a,   y=data2$a,   color="Point1RMSE"), shape=3)+
+  geom_point(aes(x=data1$a.1, y=data2$a.1, color="Point1RMSE"), shape=3)+
+  geom_point(aes(x=data1$a.2, y=data2$a.2, color="Point1RMSE"), shape=3)+
+  geom_point(aes(x=data1$a.3, y=data2$a.3, color="Point2RMSE"), shape=3)+
+  geom_point(aes(x=data1$a.4, y=data2$a.4, color="Point2RMSE"), shape=3)+
+  geom_point(aes(x=data1$a.5, y=data2$a.5, color="Point2RMSE"), shape=3)+
+  geom_point(aes(x=data1$a.6, y=data2$a.6, color="Point3RMSE"), shape=3)+
+  geom_point(aes(x=data1$a.7, y=data2$a.7, color="Point3RMSE"), shape=3)+
+  geom_point(aes(x=data1$a.8, y=data2$a.8, color="Point3RMSE"), shape=3)+
+  xlab("Root Mean Square Error of All Measurments in X (meters)")+ylab("Root Mean Square Error of All Measurments in Y (meters)")+
+  ggtitle("Exp1")+
+  scale_color_manual(
+    values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
+  theme_bw()+ theme(text = element_text(size = 10), 
+                    axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+                    axis.title.y = element_text(color="#993333", size=10, face="bold"))
+```
+
 ```{r echo=FALSE}
 library(patchwork)
 
-wrap_plots(x,y)+ plot_annotation( title = '       Exp1 Root Mean Square Error of All Data vs Number of Areas in X and Y')
+wrap_plots(x,y)+ plot_annotation( title = '       Fig1. Exp1 Root Mean Square Error of All Data vs Number of Areas in X and Y')
 ```
-
 
 ```{r}
 x$labels$title
-ggplotly(x)
+ggplotly(x+ggtitle("Exp1"))
 ```
 
 ```{r}
-ggplotly(y)
+ggplotly(y+ggtitle("Exp1"))
 ```
 
+```{r}
+ggplotly(xy11+ggtitle("Fig1. Exp1"))
+```
 
 ```{r include=FALSE}
 all(df7,df8,df9, 6.63, 12.19)
@@ -401,7 +418,6 @@ all(df25,df26,df27, 6.63,32.61)
 p9<- c(0.6475703, 0.1728675, sqrt((0.6475703)^2+(0.1728675)^2))
 ```
 
-
 ```{r include=FALSE}
 library(ggthemes)
 p1 <-c(0.30957890 ,0.05673186, sqrt((0.30957890)^2+(0.05673186)^2))
@@ -426,7 +442,7 @@ wx <- ggplot(data=f)+
   theme(text = element_text(size = 10), 
         axis.title.x = element_text(color="blue", size=10,  face="bold"), 
         axis.title.y = element_text(color="#993333", size=10, face="bold"))+
-  labs(y = "Total Root Mean Square Error in X (meters)",
+  labs(y = "Root Mean Square Error of All Observations in X (meters)",
        x = "Tag Position")
 
 wy <- ggplot(data=f)+
@@ -440,7 +456,7 @@ wy <- ggplot(data=f)+
   geom_point(aes(x="3", y=p6[2],color="Point3RMSE"),shape=4)+
   geom_point(aes(x="3", y=p9[2],color="Point3RMSE"),shape=4)+
   theme_bw()+
-  labs(y = "Total Root Mean Square Error in Y (meters)",
+  labs(y = "Root Mean Square Error of All Observations in Y (meters)",
        x = "Tag Position")+
   scale_color_manual(
     values = c("red","black","blue"))+ 
@@ -456,117 +472,114 @@ wy <- ggplot(data=f)+
 library(cowplot)
 wy$labels$colour<-"Legend"
 wx$labels$colour<-"Legend"
-wrap_plots(wx,wy)+ plot_annotation( title = '       Exp1 Root Mean Square Error of All Data vs Tag Position in X and Y')
+wrap_plots(wx,wy)+ plot_annotation( title = '       Fig1. Exp1 Root Mean Square Error of All Data vs Tag Position in X and Y')
 ```
 
 ```{r}
-ggplotly(wx)
+ggplotly(wx+ggtitle("Exp1"))
 ```
 
 ```{r}
-ggplotly(wy)
+ggplotly(wy+ggtitle("Fig1. Exp1"))
 ```
-
-
-
-
-
-
-
 
 * Moreover, in this interactive plot a comparison between the data recorded by dWM1001 And the laser tool, to show how far the estimation of UWB is from the from the ground truth.
+
+```{r}
+sqrtt <- function(x ,y){
+  m <- sqrt((x)^2+(y)^2)
+  return(m)
+}
+```
 
 ```{r echo=FALSE}
 sha<-data.frame(h1=c(7.54,2.48),h2=c(7.54,5),h3=c(7.54,6.62))
 sha1<-data.frame(h1=c(4.26,7.44),h2=c(4.26,15.02),h3=c(4.26,19.9))
 sha2<-data.frame(h1=c(6.63,12.19),h2=c(6.63,24.61),h3=c(6.63,32.61))
+######
+s<-data.frame( h1 =sqrtt(7.54,2.48), h2= sqrtt(7.54,5),    h3=sqrtt(7.54,6.62))
+s1<-data.frame(h1 =sqrtt(4.26,7.44), h2= sqrtt(4.26,15.02),h3=sqrtt(4.26,19.9))
+s2<-data.frame(h1 =sqrtt(6.63,12.19),h2= sqrtt(6.63,24.61), h3=sqrtt(6.63,32.61))
 ```
 
 ```{r include=FALSE}
 she<-data.frame(h1=c(7.848414,2.427450),h2=c(7.838189,5.133005),h3=c(7.855341,6.483155))
 she1<-data.frame(h1=c(4.459064,7.383452),h2=c(4.404527,15.190870),h3=c(4.497528,19.841840))
 she2<-data.frame(h1=c(7.113699,12.270310),h2=c(6.916778,24.803490),h3=c(7.277247,32.437990))
+#####
+sh<-data.frame( h1 = sqrtt(7.848414,2.427450), h2 =sqrtt(7.838189,5.133005),h3 =sqrtt(7.855341,6.483155))
+sh1<-data.frame(h1= sqrtt(4.459064,7.383452), h2 =sqrtt(4.404527,15.190870),h3=sqrtt(4.497528,19.841840))
+sh2<-data.frame(h1= sqrtt(7.113699,12.270310),h2=sqrtt(6.916778,24.803490), h3=sqrtt(7.277247,32.437990))
 ```
 
-
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-Area1 <- "red"
-Area2 <- "blue"
-Area3 <- "black"
-gg <-data.frame(a=c("UWB Reading", "Laser Tool Reading"))
-Legend<-gg$a[1]
-newh <-data.frame("pos1"=she$h1[1:2],"pos2"= she1$h1[1:2],"pos3"=she2$h1[1:2])
 library(ggthemes)
 library(ggrepel)
 library(ggpp)
 
 k <-ggplot()+
-  geom_point(data = she, aes(x=h1[1],y=h1[2], color= "UWB1"),shape=4)+
-  geom_point(data = she, aes(x=h2[1],y=h2[2], color= "UWB2"),shape=4)+
-  geom_point(data = she, aes(x=h3[1],y=h3[2], color= "UWB3"),shape=4)+
-  geom_point(data = she1, aes(x=h1[1],y=h1[2], color="UWB1"),shape=4)+
-  geom_point(data = she1, aes(x=h2[1],y=h2[2], color="UWB2"),shape=4)+
-  geom_point(data = she1, aes(x=h3[1],y=h3[2], color="UWB3"),shape=4)+
-  geom_point(data = she2, aes(x=h1[1],y=h1[2], color="UWB1"),shape=4)+
-  geom_point(data = she2, aes(x=h2[1],y=h2[2], color="UWB2"),shape=4)+
-  geom_point(data = she2, aes(x=h3[1],y=h3[2], color="UWB3"),shape=4)+
-  geom_point(data = sha, aes(x=h1[1],y=h1[2] , color="GT1"),shape=3)+
-  geom_point(data = sha, aes(x=h2[1],y=h2[2] , color="GT2"),shape=3)+
-  geom_point(data = sha, aes(x=h3[1],y=h3[2] , color="GT3"),shape=3)+
-  geom_point(data = sha1, aes(x=h1[1],y=h1[2], color="GT1"),shape=3)+
-  geom_point(data = sha1, aes(x=h2[1],y=h2[2], color="GT2"),shape=3)+
-  geom_point(data = sha1, aes(x=h3[1],y=h3[2], color="GT3"),shape=3)+
-  geom_point(data = sha2, aes(x=h1[1],y=h1[2], color="GT1"),shape=3)+
-  geom_point(data = sha2, aes(x=h2[1],y=h2[2], color="GT2"),shape=3)+
-  geom_point(data = sha2, aes(x=h3[1],y=h3[2], color="GT3"),shape=3)+
-  theme_bw()+
-  scale_color_manual(
-    values = c("red","black","blue","red","black","blue"))+ 
-  guides(color = guide_legend("Legend"))+
-  labs(
-    tag = "Figure 1",
-    x = "Distance in X for each measurment (meters)",
-    y = "Distance in Y for each measurment (meters)")+
-    theme(text = element_text(size = 10), 
-          axis.title.x = element_text(color="blue", size=10,  face="bold"), 
-          axis.title.y = element_text(color="#993333", size=10, face="bold"))
+  geom_point(data = sh, aes( x="Area1",y=h1, color="Point1/Area1"),shape=4)+
+  geom_point(data = sh, aes( x="Area2",y=h2, color="Point1/Area2"),shape=4)+
+  geom_point(data = sh, aes( x="Area3",y=h3, color="Point1/Area3"),shape=4)+
+  geom_point(data = sh1, aes(x="Area1",y=h1, color="Point2/Area1"), shape=3)+
+  geom_point(data = sh1, aes(x="Area2",y=h2, color="Point2/Area2"), shape=3)+
+  geom_point(data = sh1, aes(x="Area3",y=h3, color="Point2/Area3"), shape=3)+
+  geom_point(data = sh2, aes(x="Area1",y=h1, color="Point3/Area1"), shape=5)+
+  geom_point(data = sh2, aes(x="Area2",y=h2, color="Point3/Area2"), shape=5)+
+  geom_point(data = sh2, aes(x="Area3",y=h3, color="Point3/Area3"), shape=5)+
+  geom_point(data = s, aes (x="Area1",y=h1 , color="GT1/Area1"),  shape=4)+
+  geom_point(data = s, aes( x="Area2",y=h2 , color="GT1/Area2"),  shape=4)+
+  geom_point(data = s, aes( x="Area3",y=h3 , color="GT1/Area3"),  shape=4)+
+  geom_point(data = s1, aes(x="Area1",y=h1,  color="GT2/Area1"),   shape=3)+
+  geom_point(data = s1, aes(x="Area2",y=h2,  color="GT2/Area2"),   shape=3)+
+  geom_point(data = s1, aes(x="Area3",y=h3,  color="GT2/Area3"),   shape=3)+
+  geom_point(data = s2, aes(x="Area1",y=h1,  color="GT3/Area1"),   shape=5)+
+  geom_point(data = s2, aes(x="Area2",y=h2,  color="GT3/Area2"),   shape=5)+
+  geom_point(data = s2, aes(x="Area3",y=h3,  color="GT3/Area3"),   shape=5)+
+  scale_color_manual(values = c("red", "blue", "black",
+        "red", "blue", "black", "red", "blue", "black",
+        "#008080", "#00FF00", "#FF00FF", "#008080",
+        "#00FF00", "#FF00FF", "#008080", "#00FF00",
+        "#FF00FF")) +theme_bw() + guides(color = guide_legend("Legend")) +
+    theme(text = element_text(size = 10, color = "black"),
+        axis.title.x = element_text(color = "blue",
+            size = 10, face = "bold"), axis.title.y = element_text(color = "#993333",
+            size = 10, face = "bold")) + labs(y = "Distance (meters)",
+    x = "Number of Areas")
+
 ```
 
-```{r echo=FALSE, warning=FALSE}
-library(plotly)
-ggplotly(k)
-```
 
 
 ```{r include=FALSE}
 library(ggforce)
 kx <-ggplot()+
-  geom_point(data = she, aes( x="Area1",y=h1[1], color="UWB_Area1"),shape=4)+
-  geom_point(data = she, aes( x="Area2",y=h2[1], color="UWB_Area2"),shape=4)+
-  geom_point(data = she, aes( x="Area3",y=h3[1], color="UWB_Area3"),shape=4)+
-  geom_point(data = she1, aes(x="Area1",y=h1[1], color="UWB_Area1"),shape=4)+
-  geom_point(data = she1, aes(x="Area2",y=h2[1], color="UWB_Area2"),shape=4)+
-  geom_point(data = she1, aes(x="Area3",y=h3[1], color="UWB_Area3"),shape=4)+
-  geom_point(data = she2, aes(x="Area1",y=h1[1], color="UWB_Area1"),shape=4)+
-  geom_point(data = she2, aes(x="Area2",y=h2[1], color="UWB_Area2"),shape=4)+
-  geom_point(data = she2, aes(x="Area3",y=h3[1], color="UWB_Area3"),shape=4)+
-  geom_point(data = sha, aes( x="Area1",y=h1[1], color="GT_Area1"),shape=3)+
-  geom_point(data = sha, aes( x="Area2",y=h2[1], color="GT_Area2"),shape=3)+
-  geom_point(data = sha, aes( x="Area3",y=h3[1], color="GT_Area3"),shape=3)+
-  geom_point(data = sha1, aes(x="Area1",y=h1[1], color="GT_Area1"),shape=3)+
-  geom_point(data = sha1, aes(x="Area2",y=h2[1], color="GT_Area2"),shape=3)+
-  geom_point(data = sha1, aes(x="Area3",y=h3[1], color="GT_Area3"),shape=3)+
-  geom_point(data = sha2, aes(x="Area1",y=h1[1], color="GT_Area1"),shape=3)+
-  geom_point(data = sha2, aes(x="Area2",y=h2[1], color="GT_Area2"),shape=3)+
-  geom_point(data = sha2, aes(x="Area3",y=h3[1], color="GT_Area3"),shape=3)+
+  geom_point(data = she, aes( x="Area1",y=h1[1], color="UWB_Pos1"),shape=4)+
+  geom_point(data = she, aes( x="Area2",y=h2[1], color="UWB_Pos2"),shape=4)+
+  geom_point(data = she, aes( x="Area3",y=h3[1], color="UWB_Pos3"),shape=4)+
+  geom_point(data = she1, aes(x="Area1",y=h1[1], color="UWB_Pos1"),shape=4)+
+  geom_point(data = she1, aes(x="Area2",y=h2[1], color="UWB_Pos2"),shape=4)+
+  geom_point(data = she1, aes(x="Area3",y=h3[1], color="UWB_Pos3"),shape=4)+
+  geom_point(data = she2, aes(x="Area1",y=h1[1], color="UWB_Pos1"),shape=4)+
+  geom_point(data = she2, aes(x="Area2",y=h2[1], color="UWB_Pos2"),shape=4)+
+  geom_point(data = she2, aes(x="Area3",y=h3[1], color="UWB_Pos3"),shape=4)+
+  geom_point(data = sha, aes( x="Area1",y=h1[1], color="GT_Pos1"),shape=3)+
+  geom_point(data = sha, aes( x="Area2",y=h2[1], color="GT_Pos2"),shape=3)+
+  geom_point(data = sha, aes( x="Area3",y=h3[1], color="GT_Pos3"),shape=3)+
+  geom_point(data = sha1, aes(x="Area1",y=h1[1], color="GT_Pos1"),shape=3)+
+  geom_point(data = sha1, aes(x="Area2",y=h2[1], color="GT_Pos2"),shape=3)+
+  geom_point(data = sha1, aes(x="Area3",y=h3[1], color="GT_Pos3"),shape=3)+
+  geom_point(data = sha2, aes(x="Area1",y=h1[1], color="GT_Pos1"),shape=3)+
+  geom_point(data = sha2, aes(x="Area2",y=h2[1], color="GT_Pos2"),shape=3)+
+  geom_point(data = sha2, aes(x="Area3",y=h3[1], color="GT_Pos3"),shape=3)+
   theme_bw()+
   scale_color_manual(
-    values = c("red","black","#008080", "blue", "#00FF00", "#FF00FF"))+ 
+    values = c("red","black","#008080", "blue", "orange", "#FF00FF"))+ 
   guides(color = guide_legend("Legend"))+
   labs(
     tag = "Figure 1",
     x = "Number of Areas",
-    y = "Distance in X (meters)")+
+    y = "Measured Distance in X (meters)")+
     theme(text = element_text(size = 10), 
           axis.title.x = element_text(color="blue", size=10,  face="bold"), 
           axis.title.y = element_text(color="#993333", size=10, face="bold"))
@@ -574,45 +587,45 @@ kx <-ggplot()+
 
 
 ```{r echo=FALSE}
-ggplotly(kx)
+ggplotly(kx+ggtitle("Fig1. Exp1"))
 ```
 
 ```{r include=FALSE}
 ky <-ggplot()+
-  geom_point(data = she,  aes(x = "Area1",y = h1[2],color="UWB1_Area1"),shape=4)+
-  geom_point(data = she,  aes(x = "Area2",y = h2[2],color="UWB2_Area2"),shape=4)+
-  geom_point(data = she,  aes(x = "Area3",y = h3[2],color="UWB3_Area3"),shape=4)+
-  geom_point(data = she1, aes(x = "Area1",y = h1[2],color="UWB1_Area1"),shape=4)+
-  geom_point(data = she1, aes(x = "Area2",y = h2[2],color="UWB2_Area2"),shape=4)+
-  geom_point(data = she1, aes(x = "Area3",y = h3[2],color="UWB3_Area3"),shape=4)+
-  geom_point(data = she2, aes(x = "Area1",y = h1[2],color="UWB1_Area1"),shape=4)+
-  geom_point(data = she2, aes(x = "Area2",y = h2[2],color="UWB2_Area2"),shape=4)+
-  geom_point(data = she2, aes(x = "Area3",y = h3[2],color="UWB3_Area3"),shape=4)+
-  geom_point(data = sha,  aes(x = "Area1",y = h1[2],color="GT1_Area1"),shape=3)+
-  geom_point(data = sha,  aes(x = "Area2",y = h2[2],color="GT2_Area2"),shape=3)+
-  geom_point(data = sha,  aes(x = "Area3",y = h3[2],color="GT3_Area3"),shape=3)+
-  geom_point(data = sha1, aes(x = "Area1",y = h1[2],color="GT1_Area1"),shape=3)+
-  geom_point(data = sha1, aes(x = "Area2",y = h2[2],color="GT2_Area2"),shape=3)+
-  geom_point(data = sha1, aes(x = "Area3",y = h3[2],color="GT3_Area3"),shape=3)+
-  geom_point(data = sha2, aes(x = "Area1",y = h1[2],color="GT1_Area1"),shape=3)+
-  geom_point(data = sha2, aes(x = "Area2",y = h2[2],color="GT2_Area2"),shape=3)+
-  geom_point(data = sha2, aes(x = "Area3",y = h3[2],color="GT3_Area3"),shape=3)+
+  geom_point(data = she,  aes(x = "Area1",y = h1[2],color="UWB_Pos1"),shape=4)+
+  geom_point(data = she,  aes(x = "Area2",y = h2[2],color="UWB_Pos2"),shape=4)+
+  geom_point(data = she,  aes(x = "Area3",y = h3[2],color="UWB_Pos3"),shape=4)+
+  geom_point(data = she1, aes(x = "Area1",y = h1[2],color="UWB_Pos1"),shape=4)+
+  geom_point(data = she1, aes(x = "Area2",y = h2[2],color="UWB_Pos2"),shape=4)+
+  geom_point(data = she1, aes(x = "Area3",y = h3[2],color="UWB_Pos3"),shape=4)+
+  geom_point(data = she2, aes(x = "Area1",y = h1[2],color="UWB_Pos1"),shape=4)+
+  geom_point(data = she2, aes(x = "Area2",y = h2[2],color="UWB_Pos2"),shape=4)+
+  geom_point(data = she2, aes(x = "Area3",y = h3[2],color="UWB_Pos3"),shape=4)+
+  geom_point(data = sha,  aes(x = "Area1",y = h1[2],color="GT_Pos1"),shape=3)+
+  geom_point(data = sha,  aes(x = "Area2",y = h2[2],color="GT_Pos2"),shape=3)+
+  geom_point(data = sha,  aes(x = "Area3",y = h3[2],color="GT_Pos3"),shape=3)+
+  geom_point(data = sha1, aes(x = "Area1",y = h1[2],color="GT_Pos1"),shape=3)+
+  geom_point(data = sha1, aes(x = "Area2",y = h2[2],color="GT_Pos2"),shape=3)+
+  geom_point(data = sha1, aes(x = "Area3",y = h3[2],color="GT_Pos3"),shape=3)+
+  geom_point(data = sha2, aes(x = "Area1",y = h1[2],color="GT_Pos1"),shape=3)+
+  geom_point(data = sha2, aes(x = "Area2",y = h2[2],color="GT_Pos2"),shape=3)+
+  geom_point(data = sha2, aes(x = "Area3",y = h3[2],color="GT_Pos3"),shape=3)+
   theme_bw()+
   scale_color_manual(
-    values = c("red","black","#008080", "blue", "#00FF00", "#FF00FF"))+ 
+    values = c("red","black","#008080", "blue", "orange", "#FF00FF"))+ 
   guides(color = guide_legend("Legend"))+
   labs(
     tag = "Figure 1",
     x = "Number of Areas",
-    y = "Distance in Y (meters)")+
-    theme(text = element_text(size = 12), 
+    y = "Measured Distance in Y (meters)")+
+    theme(text = element_text(size = 10), 
           axis.title.x = element_text(color="blue", size=10,  face="bold"), 
           axis.title.y = element_text(color="#993333", size=10, face="bold"))
 ```
 
 
 ```{r echo=FALSE}
-ggplotly(ky)
+ggplotly(ky+ggtitle("Fig1. Exp1"))
 ```
 
 ```{r include=FALSE}
@@ -668,16 +681,13 @@ bp3<-ggplot(data = f)+
   theme(text = element_text(size = 10), 
         axis.title.x = element_text(color="blue", size=10,  face="bold"), 
         axis.title.y = element_text(color="#993333", size=10, face="bold"))
-
 ```
 
 * A side by side comparison of the overall XY RMS is illustrated in this plot.
 ```{r echo=FALSE}
 library(grid)
 library(patchwork)
-
-wrap_plots(bp,bp2,bp3)+  plot_annotation(title = '               Exp1 Comparison between the Total XY RMS Error for the 3 Areas')+ plot_annotation(tag_levels = c('A','1'))
-  
+wrap_plots(bp,bp2,bp3)+  plot_annotation(title = '              Fig1. Exp1 Comparison between the Total XY RMS Error for the 3 Areas')+ plot_annotation(tag_levels = c('1','1'))
 ```
 
 ```{r include=FALSE}
@@ -686,8 +696,6 @@ PDOP1<- c(13.96228215631514, 64.39720576039119, 7.142445985010004)
 PDOP2<- c(2.3924502184918683, 3.6777114481822935, 4.137025141121068)
 p11<-data.frame(PDOP1,PDOP2,PDOP3,color= c("point1","point2","point3"))
 ```
-
-
 
 
 * The Overall RMS Error can also be observed in this table.
@@ -718,12 +726,22 @@ n11 <-ggplot()+
   theme_bw()+ 
   xlab("Number of Areas")+
   ylab("Positon Dilution of Precision")+
+  ggtitle("Exp1")+
   scale_color_manual(
     values = c("red","black","blue"))+ 
   guides(color = guide_legend("Legend"))+
-  theme(text = element_text(size = 10), axis.title.x = element_text(color="blue", size=10,  face="bold"),     axis.title.y = element_text(color="#993333", size=10, face="bold"))
+  theme(text = element_text(size = 10), 
+        axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+        axis.title.y = element_text(color="#993333", size=10, face="bold"))
   
 ```
+
+```{r echo=FALSE, warning=FALSE}
+library(plotly)
+ggplotly(k+ggtitle("Fig1. Exp1"))
+```
+
+
 ### Conclusion 
 * Finally a conclusion can be drawn for this experiment based on the computation of GDOP, specifically PDOP, since we don't have a timing aspect to compute for UWB. PDOP helps estimate the quality of coverage based on the position of the anchors (the lower the values the better in terms of coverage accuracy). Based on the RMS error results computed for each point and the results obtained for PDOP we can conclude that the configuration of Area 2 is the best out of 3 studied areas.
 Overall, we can observe that the lowest RMSE lies at Area 2 which is also verified by the PDOP values, however further improvement would are possible with further change of the anchor placement configuration in the absolute line of sight, while also trying to mitigate the effect of the Fresnel Zone.
@@ -743,4 +761,31 @@ abline(v=mean(df3$`/dwm1001/id_458E/pose_kf/pose/position/x`), col= "red")
 ```
 
 
+```{r}
+lssf <- c(0.3147342,	0.2271155,	0.4857453,	0.3256513	,0.2453803,	0.4337053	,0.3340620,	0.2546245,	0.6702466)
+ff <- ggplot()+
+  geom_point(aes(x="Area1" , y= lssf[1], color= "Point1/Area1"),shape = 2)+
+  geom_point(aes(x="Area1" , y= lssf[2], color= "Point2/Area1"),shape = 3)+
+  geom_point(aes(x="Area1" , y= lssf[3], color= "Point3/Area1"),shape = 4)+
+  geom_point(aes(x="Area2" , y= lssf[4], color= "Point1/Area2"),shape = 2)+
+  geom_point(aes(x="Area2" , y= lssf[5], color= "Point2/Area2"),shape = 3)+
+  geom_point(aes(x="Area2" , y= lssf[6], color= "Point3/Area2"),shape = 4)+
+  geom_point(aes(x="Area3" , y= lssf[7], color= "Point1/Area3"),shape = 2)+
+  geom_point(aes(x="Area3" , y= lssf[8], color= "Point2/Area3"),shape = 3)+
+  geom_point(aes(x="Area3" , y= lssf[9], color= "Point3/Area3"),shape = 4)+
+  scale_color_manual(
+    values = c("red", "black", "blue","red", "black", "blue","red", "black", "blue")
+  )+
+  theme_bw()+ guides(color = guide_legend("Legend"))+
+  theme(text = element_text(size = 10), 
+        axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+        axis.title.y = element_text(color="#993333", size=10, face="bold"))+
+  xlab("Number of Areas")+
+  ylab("Distance RMSE (meters)")
+  
+```
+
+```{r}
+ggplotly(ff+ ggtitle("Fig1. Exp1"))
+```
 

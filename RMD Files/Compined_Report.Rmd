@@ -37,14 +37,13 @@ library(formatR)
 
 * Experimenting with accuracy vs. area in the garage in non-absolute line of sight **(Exp1)** and absolute line of sight **(Exp2)**. The trials were carried out in order to comprehend and compute how the accuracy of the dwm1001 module is influenced by three times scaling of the area. The first experiment was carried out in a non-absolute line of sight scenario, with the anchors positioned on garage side pillars surrounded by vehicles. The latter experiment tries to check and guarantee that the measurement error may be reduced if the anchors are located away from objects that would magnify the Fresnel effect.
 
-* Ground Truth measurements were done using laser tool. The experiments were split into 3 scenarios, each on was performed with reference to 3 points and then scaled as the area increased. Three measurement were taken at each point for each area, each measurement instance was performed for 1 minute, with a total of 27 measurements for almost half an hour of data.
+* Ground Truth measurements were done using laser tool, also the anchor locations were taken using laser tool. The experiments were split into 3 scenarios, each on was performed with reference to 3 points and then scaled as the area increased. Three measurement were taken at each point for each area, each measurement instance was performed for 1 minute, with a total of 27 measurements for almost half an hour of data.
 
 * The gateway/ listener tag was always near the tag to avoid any losses or missed instances and that has been seen in the log files as there was no data lost during all 27 instances for each experiment.
 
 * Only 4 anchors were used in both experiments with one tag, 2 anchors were at fixed position from start till the end, while 2 were moved according to the scaling of area.
 
 * All data was captured and converted using the ROS interface we developed and its ready to be aligned with the **Cohda** Wireless data once the actual experiment is done.
-
 
 
 ## Experiment Layout
@@ -72,10 +71,10 @@ knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Area3.1
 
 ### RMSE vs Area Size
 
-Figure 1 depicts how the Root Mean Square Error (RMSE) of all data scales with the Area scale for *X* and *Y* observations for both Exp1 and Exp2. With the exception of Point2/Area1 for the *X* location data, we can see that the results derived from Exp 2 are superior, with total RMSE under **<35 cm** in all situations. Furthermore, while the RMSE for the *Y* location data is identical in both studies, the error at Point2/Area1 is still much larger. Overall, the second experiment scenario appears to be superior.
+Figure 1 depicts the Root Mean Square Error (RMSE) for *X* and *Y* observations in Exp1 and Exp2, since all ground truth points were scaled in relation to the area scale, and so ground truth point coordinates changed as the area size increased. With the exception of Point2/Area1 for the *X* location data, we can see that the results derived from Exp 2 are superior, with total RMSE under **<35 cm** in all situations. Furthermore, while the RMSE for the *Y* location data is identical in both studies, the error at Point2/Area1 is still much larger. Overall, the second experiment scenario appears to be superior.
 
 ```{r echo=FALSE, fig.align='center', fig.cap="Comparison between RMSE vs Area Size for Exp1 and Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
-knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp200005.png"))
+#knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp200005.png"))
 ```
 ### RMSE vs Tag Position
 
@@ -94,7 +93,7 @@ knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1.3.
 ```
 
 
-### Comparison between the Total XY RMS Error for the 3 Areas
+### Comparison between the XY RMS Error of all Observations for the 3 Areas
 
 Figure 4 depicts an overall comparison of how the total RMSE of the observations differs across the three areas. According to those Figures, the lowest RMSE for Exp1 could be found in Area 2, whereas the lowest RMSE for Exp2 could be found in Area 3. Thus, the accuracy obtained from Exp2 is more than that obtained from Exp1 since Area 3 is substantially larger than Area 2, indicating that the Exp2 configuration is significantly superior to that of the Exp1.
 
@@ -107,7 +106,7 @@ In this report the **RMSE** and **PDOP** which are widely utilized as metrics to
 
 **GDoP** is a metric used to quantify the precision and accuracy of GPS satellite data, and it is currently being adopted for a variety of positioning systems. This measurement represents how successfully the satellites are geometrically aligned. The lower the value, the better the position. The correlation of **PDOP** (Position Dilution of Precision), **HDOP** (Horizon Dilution of Precision), and **VDOP** (Vertical Dilution of Precision) may be used to calculate GDOP. These metrics have been transferred to UWB infrastructure and applications. As a result, determining a receivers position (tag) in a general three-dimensional region demands the usage of at least four UWB anchor modules. Since time $t$ is irrelevant for UWB ranging systems since the signal propagation time is directly employed for time-of-flight measurement. As a result, the PDoP measure is employed instead of the GDoP.
 
-We may deduce from the PDOP data that the Exp1 Area 2 setup has the lowest error in localization measurement. While Area 3 is the best configuration for Exp2 in terms of coverage and error, Area 2 is the best configuration for Exp3 in terms of coverage and error. Finally, we can infer from all of the provided findings that the most accuracy efficient configuration for anchor placement is seen at Exp2/ Area3, where we are guaranteed both highest coverage Area and lowest error. 
+We may deduce from the PDOP data that the Exp1 Area 2 setup has the lowest error in localization measurement. While Area 3 is the best configuration for **Exp2** in terms of coverage and error, Area 2 is the best configuration for **Exp1** in terms of coverage and error. Finally, we can infer from all of the provided findings that the most accuracy efficient configuration for anchor placement is seen at Exp2/ Area3, where we are guaranteed both highest coverage Area and lowest error. 
 
 ```{r echo=FALSE, fig.align='center', fig.cap="Position Dilution of Precision Exp1 vs Exp2", fig.show='hold', warning=FALSE, out.height="49%", out.width="49%"}
 knitr::include_graphics(c("/Users/anasosman/Downloads/UWB_Report/Figures/Exp1.5.png","/Users/anasosman/Downloads/UWB_Report/Figures/Exp200001.png"))
