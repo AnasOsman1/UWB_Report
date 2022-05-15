@@ -268,20 +268,20 @@ Q <- ggplot()+
 ```
 
 ```{r echo=FALSE}
-ggplotly(p+ggtitle("Exp2"))
+ggplotly(p)
 ```
 
 ```{r echo=FALSE}
-ggplotly(O+ggtitle("Exp2"))
+ggplotly(O)
 ```
 
 ```{r echo=FALSE}
-ggplotly(Q+ggtitle("Exp2"))
+ggplotly(Q+ ggtitle("Fig2. Exp2"))
 ```
 
 
 ```{r echo=FALSE}
-wrap_plots(p, O)+plot_annotation(title = '         Ex2 Root Mean Square Error of All Data vs Number of Areas in X and Y')
+wrap_plots(p, O)+plot_annotation(title = '        Fig2. Ex2 Root Mean Square Error of All Data vs Number of Areas in X and Y')
 ```
 
 
@@ -335,12 +335,13 @@ p1 <- ggplot()+
   scale_color_manual(
     labels = c("Point1RMSE","Point2RMSE","Point3RMSE"), 
     values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
   theme(
     text = element_text(size = 10, color = "black"),
     axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
     axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
-    y = "Root Mean Square Error of All Observations X in (meters)",
+    y = "Root Mean Square Error of All Observations in X (meters)",
     x = "Tag Position")
 
 
@@ -358,12 +359,14 @@ p2 <- ggplot()+
    scale_color_manual(
     labels = c("Point1RMSE","Point2RMSE","Point3RMSE"), 
     values = c("red","black","blue"))+ 
+  guides(color = guide_legend("Legend"))+
+  
   theme(
     text = element_text(size = 10, color = "black"),
     axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
     axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
-    y = "Root Mean Square Error of All Observations Y in (meters)",
+    y = "Root Mean Square Error of All Observations in Y (meters)",
     x = "Tag Position")
 
 p3 <- ggplot()+
@@ -385,8 +388,8 @@ p3 <- ggplot()+
     axis.title.x  =  element_text(color = "blue", size = 10, face = "bold"),
     axis.title.y  =  element_text(color = "#993333", size = 10, face = "bold"))+
   labs(
-    y = "Total Root Mean Square Error of All Observations Y in (meters)",
-    x = "Total Root Mean Square Error of All Observations X in (meters)")
+    y = "Total Root Mean Square Error Y in (meters)",
+    x = "Total Root Mean Square Error X in (meters)")
   
 ```
 
@@ -409,7 +412,7 @@ ggplotly(p3)
 
 
 ```{r}
-wrap_plots(p1,p2)+ plot_annotation(title = '      Ex2 Root Mean Square Error of All Data vs Tag Positions in X and Y')
+wrap_plots(p1,p2)+ plot_annotation(title = '     Fig2. Ex2 Root Mean Square Error of All Data vs Tag Positions in X and Y')
 ```
 * The comparison between the ground truth measurement and the UWB reading is shown in this figure. 
 
@@ -528,7 +531,7 @@ Compx <- ggplot()+
 ```
 
 ```{r echo=FALSE}
-ggplotly(Compx+ggtitle("Exp2"))
+ggplotly(Compx+ggtitle("Fig2. Exp2"))
 ```
 
 ```{r include=FALSE}
@@ -565,7 +568,7 @@ Compy <- ggplot()+
 ```
 
 ```{r echo=FALSE}
-ggplotly(Compy+ggtitle("Exp2"))
+ggplotly(Compy+ ggtitle("Fig2. Exp2"))
 ```
 
 * An overall comparison of how the total RMSE of the observations between the 3 areas can be observed in this plot. We can observe that the most significant error is observed at point 2 in Area 1. While the best over all RMSE can be observed for the 3 points all together at Area 3 for both the x and y.
@@ -627,7 +630,7 @@ a3<- ggplot()+
 ```
 
 ```{r echo=FALSE}
-wrap_plots(a1,a2,a3)+plot_annotation(title = '             Ex2 Comparison between the Total XY RMS Error for the 3 Areas')+plot_annotation(tag_levels = c('1','1'))
+wrap_plots(a1,a2,a3)+plot_annotation(title = '             Fig2. Ex2 Comparison between the Total XY RMS Error for the 3 Areas')+plot_annotation(tag_levels = c('1','1'))
 
 ```
 
@@ -689,6 +692,7 @@ Fin <- ggplot() + geom_point(data = df_list111, aes(x = "Area1",
     aes(x = "Area3", y = Point2.2, color = "GT2/Area3"),
     shape = 3) + geom_point(data = Arrr, aes(x = "Area3",
       y = Point3.2, color = "GT3/Area3"), shape = 5) +
+    theme_bw()+
     scale_color_manual(values = c("red", "blue", "black",
         "red", "blue", "black", "red", "blue", "black",
         "#008080", "#00FF00", "#FF00FF", "#008080",
@@ -698,11 +702,11 @@ Fin <- ggplot() + geom_point(data = df_list111, aes(x = "Area1",
         axis.title.x = element_text(color = "blue",
             size = 10, face = "bold"), axis.title.y = element_text(color = "#993333",
             size = 10, face = "bold")) + labs(y = "Distance (meters)",
-    x = "Number of Areas") +theme_bw()
+    x = "Number of Areas")
 ```
 
 ```{r}
-ggplotly(Fin+ggtitle("Exp2"))
+ggplotly(Fin+ ggtitle("Fig2. Exp2"))
 ```
 
 
@@ -749,10 +753,31 @@ Pdop <- ggplot()+
 ```{r echo=FALSE}
 ggplotly(Pdop)
 ```
+```{r}
+lkk <- c(0.1849624,	0.5964992	,0.2000364,	0.1499957,	0.3966754,	0.3090900	,0.2995334,	0.3469266	,0.1893291)
 
+hhh <- ggplot()+
+  geom_point(aes(x="Area1" , y= lkk[1], color= "Point1/Area1"),shape = 2)+
+  geom_point(aes(x="Area1" , y= lkk[2], color= "Point2/Area1"),shape = 3)+
+  geom_point(aes(x="Area1" , y= lkk[3], color= "Point3/Area1"),shape = 4)+
+  geom_point(aes(x="Area2" , y= lkk[4], color= "Point1/Area2"),shape = 2)+
+  geom_point(aes(x="Area2" , y= lkk[5], color= "Point2/Area2"),shape = 3)+
+  geom_point(aes(x="Area2" , y= lkk[6], color= "Point3/Area2"),shape = 4)+
+  geom_point(aes(x="Area3" , y= lkk[7], color= "Point1/Area3"),shape = 2)+
+  geom_point(aes(x="Area3" , y= lkk[8], color= "Point2/Area3"),shape = 3)+
+  geom_point(aes(x="Area3" , y= lkk[9], color= "Point3/Area3"),shape = 4)+
+  scale_color_manual(
+    values = c("red", "black", "blue","red", "black", "blue","red", "black", "blue")
+  )+
+  theme_bw()+ guides(color = guide_legend("Legend"))+
+  theme(text = element_text(size = 10), 
+        axis.title.x = element_text(color="blue", size=10,  face="bold"), 
+        axis.title.y = element_text(color="#993333", size=10, face="bold"))+
+  xlab("Number of Areas")+
+  ylab("Distance RMSE (meters)")
+```
 
-
-
-
-
+```{r}
+ggplotly(hhh+ ggtitle("Fig2. Exp2"))
+```
 
