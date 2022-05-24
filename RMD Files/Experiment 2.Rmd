@@ -412,7 +412,7 @@ ggplotly(p3)
 
 
 ```{r}
-wrap_plots(p1,p2)+ plot_annotation(title = '     Fig2. Ex2 Root Mean Square Error of All Data vs Tag Positions in X and Y')
+wrap_plots(p1,p2)+ plot_annotation(title = '     Fig2. Exp2 Root Mean Square Error of All Data vs Tag Positions in X and Y')
 ```
 * The comparison between the ground truth measurement and the UWB reading is shown in this figure. 
 

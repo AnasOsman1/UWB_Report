@@ -720,9 +720,9 @@ ggplotly(Fin+ ggtitle("Fig2. Exp2"))
 
 
 ```{r include=FALSE}
-PDOP_1<- data.frame(Point1 = 1.2412,Point2 = 172.7275, Point3 = 1.2419)
-PDOP_2<- data.frame(Point1 = 1.78628, Point2= 10.4719, Point3= 4.91858)
-PDOP_3<- data.frame(Point1 =6.3711, Point2= 1.16655, Point3= 2.21881)
+PDOP_1<- data.frame(Point1 = 3.0397,Point2 = 7.4488, Point3 = 28.0015)
+PDOP_2<- data.frame(Point1 = 3.7677, Point2= 4.108, Point3= 2.206)
+PDOP_3<- data.frame(Point1 =5.799, Point2= 8.963, Point3= 13.202)
 ```
 
 ```{r include=FALSE}
