@@ -3,8 +3,7 @@
 import math
 import numpy
 
-# Assuming elevation = 0
-# Test values recievedƒ
+# Test values recieved
 # Lat and Lon and given values
 # While the Dist was computed using haversine method
 
