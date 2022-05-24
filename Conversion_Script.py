@@ -1,5 +1,5 @@
 # Conversion Script by @ Anas Osman
-# Performing Trilateration on a Give 3 Points
+# Performing Trilateration on a Given 3 Points
 import math
 import numpy
 
@@ -97,3 +97,4 @@ conv_latlon(Lat1, Lat2, Lat3, Lon1, Lon2, Lon3, DistA, DistB, DistC)
 # Printed output x = 0.014870677049348975 ~ 15m, y = 0.014990701045554574 ~ 15m
 # lat = 46.06760708133096, lon = 11.151311353476835
 # Which does match the point provided as shown by the lat/lon output and the conversion
+
