@@ -33,8 +33,8 @@ def dis_calc_herv(Lat1, Lon1, Lat2, Lon2):
     dlon = lonB - lonA
     dlat = latB - latA
 
-    a = math.sin(dlat / 2)**2 + math.cos(latA) * \
-        math.cos(latB) * math.sin(dlon / 2)**2
+    a = pow(math.sin(dlat / 2), 2)+ math.cos(latA) * \
+        math.cos(latB) * pow(math.sin(dlon / 2), 2)
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
     distance = R * c
