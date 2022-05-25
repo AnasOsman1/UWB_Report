@@ -22,7 +22,7 @@ DistC = 0.06833968  # in Km
 
 
 def dis_calc_herv(Lat1, Lon1, Lat2, Lon2):
-    R = 6356.137  # in Km
+    earthR = 6356.137  # in Km
 
     latA = math.radians(Lat1)
     lonA = math.radians(Lon1)
@@ -36,7 +36,7 @@ def dis_calc_herv(Lat1, Lon1, Lat2, Lon2):
         math.cos(latB) * pow(math.sin(dlon / 2), 2)
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
-    distance = R * c
+    distance = earthR * c
 
     print(distance)
 
