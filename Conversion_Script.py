@@ -1,5 +1,5 @@
 # Conversion Script by @ Anas Osman
-# Performing Trilateration on a Given 3 Points
+# Performing Trilateration on a Give 3 Points
 import math
 import numpy
 
@@ -32,7 +32,7 @@ def dis_calc_herv(Lat1, Lon1, Lat2, Lon2):
     dlon = lonB - lonA
     dlat = latB - latA
 
-    a = pow(math.sin(dlat / 2), 2)+ math.cos(latA) * \
+    a = pow(math.sin(dlat / 2), 2) + math.cos(latA) * \
         math.cos(latB) * pow(math.sin(dlon / 2), 2)
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
@@ -44,13 +44,13 @@ def dis_calc_herv(Lat1, Lon1, Lat2, Lon2):
 # Trilateration function
 
 def conv_latlon(Lat1, Lat2, Lat3, Lon1, Lon2, Lon3, DistA, DistB, DistC):
-    earthR = 6356.137  # in Km ; could be changed to other  such as 6371
-    # Using authalic sphere
-    # Convert Geodetic Lat/Long to ECEF xyz
-    # ECEF is a cartesian spatial reference system
-    # that represents locations in the vicinity of the Earth as X, Y, and Z
-    #   1. Convert Lat/Long to radians
-    #   2. Convert Lat/Long(radians) to ECEF
+    earthR = 6356.137  # in Km ; could be changed to another value such as 6371
+# Using authalic sphere
+# Convert Geodetic Lat/Long to ECEF xyz
+# ECEF is a cartesian spatial reference system
+# that represents locations in the vicinity of the Earth as X, Y, and Z
+#   1. Convert Lat/Long to radians
+#   2. Convert Lat/Long(radians) to ECEF
     xA = earthR * (math.cos(math.radians(Lat1)) * math.cos(math.radians(Lon1)))
     yA = earthR * (math.cos(math.radians(Lat1)) * math.sin(math.radians(Lon1)))
     zA = earthR * (math.sin(math.radians(Lat1)))
@@ -94,7 +94,7 @@ def conv_latlon(Lat1, Lat2, Lat3, Lon1, Lon2, Lon3, DistA, DistB, DistC):
 
 # Function Call
 conv_latlon(Lat1, Lat2, Lat3, Lon1, Lon2, Lon3, DistA, DistB, DistC)
+
 # Printed output x = 0.014870677049348975 ~ 15m, y = 0.014990701045554574 ~ 15m
 # lat = 46.06760708133096, lon = 11.151311353476835
 # Which does match the point provided as shown by the lat/lon output and the conversion
-
