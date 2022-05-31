@@ -4,34 +4,30 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-
 // This example creates circles on the map, representing populations in North
 // America.
 
 // First, create an object containing LatLng and population for each city.
+// Initialize and add the map
 
 interface City {
   center: google.maps.LatLngLiteral;
-  population: number;
+  radius: number;
 }
 
 const citymap: Record<string, City> = {
   chicago: {
-    center: { lat: 41.878, lng: -87.629 },
-    population: 2714856,
+    center: { lat: 46.0674749798995, lng: 11.15111384638543 },
+    radius: 77.45263
   },
   newyork: {
-    center: { lat: 40.714, lng: -74.005 },
-    population: 8405837,
+    center: { lat: 46.06746707029327, lng: 11.15162413599556 },
+    radius: 82.40549
   },
   losangeles: {
-    center: { lat: 34.052, lng: -118.243 },
-    population: 3857799,
-  },
-  vancouver: {
-    center: { lat: 49.25, lng: -123.1 },
-    population: 603502,
-  },
+    center: { lat: 46.06820775846681, lng: 11.151114348093234 },
+    radius: 12.17063
+  }
 };
 
 function initMap(): void {
@@ -40,8 +36,8 @@ function initMap(): void {
     document.getElementById("map") as HTMLElement,
     {
       zoom: 4,
-      center: { lat: 37.09, lng: -95.712 },
-      mapTypeId: "terrain",
+      center: { lat: 46.0674749798995, lng: 11.15111384638543 },
+      mapTypeId: "terrain"
     }
   );
 
@@ -57,7 +53,19 @@ function initMap(): void {
       fillOpacity: 0.35,
       map,
       center: citymap[city].center,
-      radius: Math.sqrt(citymap[city].population) * 100,
+      radius: citymap[city].radius
+    });
+    // The marker, positioned at Uluru
+    const marker = new google.maps.Marker({
+      position: { lat: 46.06816571239967, lng: 11.151260403435263 },
+      map: map
+    });
+    const image =
+      "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+    const beachMarker = new google.maps.Marker({
+      position: { lat: 46.0681657124098, lng: 11.151260404212527 },
+      map,
+      icon: image
     });
   }
 }
@@ -68,4 +76,4 @@ declare global {
   }
 }
 window.initMap = initMap;
-export {};
+
