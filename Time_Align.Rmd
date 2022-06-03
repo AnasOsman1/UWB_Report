@@ -1,0 +1,95 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(fs)
+```
+
+```{r}
+setwd("/Users/anasosman/Downloads")
+```
+
+```{r}
+filer <- list("01.csv", "02.csv", "03.csv", "04.csv",
+    "05.csv")
+
+clean <- function(data) {
+    new <- data %>%
+        select(rosbagTimestamp, secs, nsecs, x, y,
+            z)
+    return(new)
+}
+
+for (x in filer) {
+    n <- write.csv(clean(read.csv(x)), paste0(x, ".csv"))
+}
+```
+
+```{r}
+# Reading the Cohda Wireless fiLes
+dff <- read.csv("o.csv")
+dff1 <- read.csv("o1.csv")
+dff2 <- read.csv("o2.csv")
+```
+
+```{r}
+k <- read.csv("/Users/anasosman/Downloads/Car_Experiment_Data/RoundTrip/RoundTrip_original/01.csv") %>%
+    select(time_UWb = "rosbagTimestamp", secs, nsecs,
+        x, y, z)
+
+k <- filter(k, time_UWb >= 1653580153005364224 & time_UWb <
+    1653580203905447680)
+
+a <- filter(dff1, time >= 1653580153005364 & time <
+    1653580203905447) %>%
+    select(time_Cohda = "time", x, y)
+ll <- data.frame(a$x, a$y, k$x, k$y)
+m <- write_csv(k, "Uwb.csv")
+s <- write_csv(a, "Cohda.csv")
+```
+
+```{r}
+setwd("/Users/anasosman/Downloads/Car_Experiment_Data/Parking_Reverse_Path")
+l <- fs::dir_ls("/Users/anasosman/Downloads/Car_Experiment_Data/RoundTrip")
+namess <- c("10.csv")
+file_contents<- list()
+for (i in seq_along(l)){
+  file_contents[[i]]<- read_csv(file = l[[i]])
+}
+
+file_contents <- set_names(file_contents, namess)
+
+namess%>%
+  map(function(path){
+    read_csv(path)
+  })
+```
+
+```{r warning=FALSE}
+conver <- function(time11) {
+    b <- filter(dff, time >= time11[1] & time <= time11[length(time11)]) %>%
+        select(time_Cohda = "time", x, y)
+
+    print(b)
+}
+
+out <- numeric()
+
+for (i in file_contents) {
+    a <- i$rosbagTimestamp/1000
+    b <- assign(paste("a", i$secs, sep = ""), conver(a))
+    out <- c(out, b)
+}
+
+lis <- list(1, 4, 7, 10, 13)
+
+for (i in lis) {
+    write.csv(data.frame(out[i], out[i + 1], out[i +2])
+        , file = paste0(i, ".csv"))
+}                     
+```
+
