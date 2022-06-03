@@ -30,7 +30,7 @@ library(shiny)
 ```
 
 ```{r warning=FALSE, include=FALSE}
-setwd('/Users/anasosman/Downloads/data-exp')
+
 ```
 
 ```{r Reading CSV files, include=FALSE}
@@ -52,19 +52,15 @@ file_paths%>%
   map(function(path){
     read_csv(path)
   })
-```
-
-```{r include=FALSE}
-clean <- function(data){
-new <- data%>%
-select( 
-        x = '/dwm1001/id_458E/pose_kf/pose/position/x',
-        y = '/dwm1001/id_458E/pose_kf/pose/position/y')
-  
-  return(new)
-}
 
 ```
+
+```{r}
+library(knitr)
+opts_knit$set(root.dir = "/Users/anasosman/Downloads/Car_Experiment_Data/Forward_Path")
+getwd()
+```
+
 
 ## Experiment Goal
 

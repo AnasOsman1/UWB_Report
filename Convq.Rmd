@@ -64,15 +64,131 @@ qq2<- unlist(qq2)
 (qq <- qq2-qq1)
 ```
 
-
 ```{r}
-46.06753753845485, 11.151091797498147
-
+ library(geosphere)
+distHaversine(c(46.0674749798995, 11.15111384638543), c(46.06816571239967  ,  11.151260403435263)) # Helsinki
+distHaversine(c(46.06746707029327, 11.15162413599556), c(46.06816571239967  ,  11.151260403435263)) # Tartu
+distHaversine(c(46.06820775846681, 11.151114348093234), c(46.06816571239967  ,  11.151260403435263))
 ```
 
 
+```{r}
+library(pracma)
+
+# Earth radius in metres
+EARTH_RADIUS <- 6356137
+
+# Helper function for converting to ECEH coordinates
+eceh <- function (s) {
+    vx <- EARTH_RADIUS * (cos(deg2rad(s[1])) * cos(deg2rad(s[2])))
+    vy <- EARTH_RADIUS * (cos(deg2rad(s[1])) * sin(deg2rad(s[2])))
+    vz <- EARTH_RADIUS * (sin(deg2rad(s[1])))
+    c(vx, vy, vz)
+}
+
+# Helper function for normalizing a vector
+normalize <- function (x) { x / sqrt(sum(x^2)) }
+
+# Three spheres
+s1 <- c(46.0674749798995, 11.15111384638543 , 0.0601851734198493*10^3)
+s2 <- c(46.06746707029327, 11.15162413599556, 0.045236858051052764*10^3)
+s3 <- c(46.06820775846681, 11.151114348093234, 0.05494483784384916*10^3 )
+P1 <- eceh(s1)
+P2 <- eceh(s2)
+P3 <- eceh(s3)
+
+ex <- normalize(P2 - P1);
+i <- dot(ex, P3 -P1)
+ey <- normalize(P3 - P1 - ex * i);
+ez <- cross(ex, ey)
+d = dist(rbind(P2, P1))
+j = dot(ey, P3 - P1)
+
+x = (s1[3] ^ 2 - s2[3] ^ 2 + d ^ 2) / (2 * d);
+y = ((s1[3] ^ 2 - s3[3] ^ 2 + i ^ 2 + j ^ 2) / (2 * j)) - ((i / j) * x);
+z = sqrt(s1[3] ^ 2 - x ^ 2 - y ^ 2)
+
+triPt = P1 + ex * x + ey * y;
+
+latitude = rad2deg(asin(triPt[3] / EARTH_RADIUS));
+longitude = rad2deg(atan2(triPt[2], triPt[1]));
+
+paste(x, y,latitude, longitude)
+```
 
 ```{r}
-custom_hav_dist(46.0674749798995,11.15111384638543, 46.06760708251358, 
-                11.151311352705607)
+library(geosphere)
+
+locations <- data.frame(
+    latitude = c(
+        46.0674749798995, 46.06746707029327, 46.06820775846681
+    ),
+    longitude = c(
+        11.15111384638543 , 11.15162413599556, 11.151114348093234
+    ),
+    distance = c(0.0601851734198493*10^3, 0.045236858051052764*10^3, 0.05494483784384916*10^3)
+)
+
+# Use average as the starting point
+fit <- nls(
+    distance ~ distm(
+        data.frame(longitude, latitude),
+        c(fitLongitude, fitLatitude)
+    ),
+    data = locations,
+    start = list(
+        fitLongitude=mean(locations$longitude),
+        fitLatitude=mean(locations$latitude)
+    ),
+    control = list(maxiter = 1000, tol = 1e-02)
+)
+
+# Result
+latitude <- summary(fit)$coefficients[2]
+longitude <- summary(fit)$coefficients[1]
+
+paste(latitude, longitude, sep=",")
+```
+
+
+```{r}
+dfff <- data.frame("Lat" = c(46.067607864968274, 46.06760458801818, 46.067874644351996, 46.06816571239967) , "Lon" = c(11.151279200667794, 11.151479838036835, 11.151642637256128, 11.151260403435263))
+
+write.csv(dfff, "man.csv")
+```
+
+
+```{r}
+(46.067607864968274,11.151279200667794,  0.014870677049348975  , 0.014990701045554574 )
+(46.06760458801818   ,  11.151479838036835 , 0.02784164770800433   ,  0.01500378908669295  )
+(46.067874644351996  , 11.151642637256128  ,  0.03969956672975931   ,  0.04523505679417353  )
+(46.06816571239967  ,  11.151260403435263 , 0.00956612032212773  ,  0.07685963392506123  )
+
+
+46.0674749798995,  11.15111384638543 (0,0)
+46.06746707029327, 11.15162413599556 (39.37,0)
+46.06820775846681, 11.151114348093234 (0,81.26)
+```
+
+```{r}
+na <- custom_hav_dist(46.0674749798995, 11.15111384638543  ,46.067607864968274,11.151279200667794)
+na
+nb <- custom_hav_dist(46.06746707029327, 11.15162413599556  ,46.067607864968274,11.151279200667794)
+nb
+nc <- custom_hav_dist( 46.06820775846681, 11.151114348093234, 46.067607864968274,11.151279200667794)
+nc
+46.0676079926441,11.151279721256"
+```
+
+```{r}
+a <- custom_hav_dist(46.0674749798995, 11.15111384638543 , 46.06816571239967,  11.151260403435263 )
+a*10^-3
+b <- custom_hav_dist(46.06746707029327, 11.15162413599556, 46.06816571239967,  11.151260403435263 )
+b*10^-3
+```
+
+
+```{r}
+c <- custom_hav_dist(46.067607864968274,11.151279200667794,	46.0676078639805 ,11.151279200667794)
+c
 ```
